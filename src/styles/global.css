@@ -1,33 +1,55 @@
 :root {
-	--color-background: #ffffff;
-	--color-text: #171717;
-	--color-muted: #666666;
-	--color-border: #e5e5e5;
+	color-scheme: dark;
+	--color-background: #080808;
+	--color-surface: #101010;
+	--color-surface-soft: #151515;
+	--color-text: #f2f0ea;
+	--color-muted: #9b9992;
+	--color-subtle: #62605b;
+	--color-border: #24231f;
+	--accent-home: #ff4d4d;
+	--accent-blog: #ff9f1c;
+	--accent-about: #ffd166;
+	--color-accent: var(--accent-home);
 	--content-width: 720px;
+	--shell-width: 960px;
+	--font-sans: "Google Sans Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+:root[data-accent="blog"] {
+	--color-accent: var(--accent-blog);
+}
+
+:root[data-accent="about"] {
+	--color-accent: var(--accent-about);
 }
 
 * {
 	box-sizing: border-box;
 }
 
+::selection {
+	background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+	color: var(--color-text);
+}
+
 body {
 	margin: 0;
-	background: var(--color-background);
+	min-height: 100vh;
+	background:
+		radial-gradient(circle at top left, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 28rem),
+		linear-gradient(180deg, #0d0d0d 0%, var(--color-background) 26rem);
 	color: var(--color-text);
-	font-family:
-		system-ui,
-		-apple-system,
-		BlinkMacSystemFont,
-		"Segoe UI",
-		sans-serif;
+	font-family: var(--font-sans);
 	font-size: 18px;
 	line-height: 1.6;
+	text-rendering: optimizeLegibility;
 }
 
 main {
 	width: min(var(--content-width), calc(100% - 2rem));
 	margin: auto;
-	padding: 4rem 0;
+	padding: clamp(4rem, 12vw, 7rem) 0;
 }
 
 h1,
@@ -37,17 +59,64 @@ h4,
 h5,
 h6 {
 	line-height: 1.1;
+	text-wrap: balance;
 }
 
 h1 {
-	font-size: clamp(2.25rem, 8vw, 4rem);
+	font-size: clamp(2.75rem, 12vw, 6.5rem);
+	font-weight: 650;
+	letter-spacing: -0.07em;
 	margin: 0 0 1rem;
 }
 
+h1::before {
+	content: "//";
+	display: block;
+	margin-bottom: 0.75rem;
+	color: var(--color-accent);
+	font-size: 0.95rem;
+	font-weight: 520;
+	letter-spacing: 0.04em;
+}
+
 p {
+	max-width: 38rem;
 	margin: 0 0 1rem;
+	color: var(--color-muted);
 }
 
 a {
 	color: inherit;
+	text-decoration-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+a:hover {
+	color: var(--color-accent);
+}
+
+a:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 0.25rem;
+}
+
+.text-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	color: var(--color-text);
+	font-weight: 620;
+	text-decoration: none;
+}
+
+.text-link::before {
+	content: "->";
+	color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+	body {
+		font-size: 17px;
+	}
 }
