@@ -1,5 +1,10 @@
 ---
-import { House, NotebookText, UserRound } from '@lucide/astro';
+import House from 'phosphor-astro/House.astro';
+import HouseFill from 'phosphor-astro/HouseFill.astro';
+import Notebook from 'phosphor-astro/Notebook.astro';
+import NotebookFill from 'phosphor-astro/NotebookFill.astro';
+import User from 'phosphor-astro/User.astro';
+import UserFill from 'phosphor-astro/UserFill.astro';
 import { SITE_TITLE } from '../../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
@@ -12,13 +17,16 @@ import HeaderLink from './HeaderLink.astro';
 		</a>
 		<div>
 			<HeaderLink href="/" label="Home">
-				<House aria-hidden="true" />
+				<House slot="icon" class="icon" aria-hidden="true" />
+				<HouseFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
 			</HeaderLink>
 			<HeaderLink href="/blog" label="Blog">
-				<NotebookText aria-hidden="true" />
+				<Notebook slot="icon" class="icon" aria-hidden="true" />
+				<NotebookFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
 			</HeaderLink>
 			<HeaderLink href="/about" label="About">
-				<UserRound aria-hidden="true" />
+				<User slot="icon" class="icon" aria-hidden="true" />
+				<UserFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
 			</HeaderLink>
 		</div>
 	</nav>

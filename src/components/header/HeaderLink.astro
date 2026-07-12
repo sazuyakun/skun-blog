@@ -12,8 +12,11 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 ---
 
 <a href={href} aria-label={label} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
-	<span>{label}</span>
+	<span class="icon-wrap">
+		<slot name="icon" />
+		<slot name="active-icon" />
+	</span>
+	<span class="label">{label}</span>
 </a>
 <style>
 	a {
@@ -28,27 +31,42 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		transition: color 160ms ease;
 	}
 
-	a :global(.lucide) {
+	.icon-wrap {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		width: 1.05rem;
 		height: 1.05rem;
-		stroke: currentColor;
-		display: block;
 		flex: 0 0 auto;
 	}
 
-	span {
-		display: inline-block;
+	.icon-wrap :global(.icon) {
+		width: 1.05rem;
+		height: 1.05rem;
+		display: block;
+	}
+
+	.icon-wrap :global(.active-icon),
+	a.active .icon-wrap :global(.icon:not(.active-icon)) {
+		display: none;
+	}
+
+	a.active .icon-wrap :global(.active-icon) {
+		display: block;
+	}
+
+	.label {
+		display: inline-flex;
+		align-items: center;
 		max-width: 0;
 		margin-left: 0;
 		overflow: hidden;
 		opacity: 0;
-		line-height: 1.2;
-		transform: translate(-0.25rem, 0.04em);
+		line-height: 1.4;
 		transition:
 			margin-left 180ms ease,
 			max-width 180ms ease,
-			opacity 140ms ease,
-			transform 180ms ease;
+			opacity 140ms ease;
 	}
 
 	a::before {
@@ -71,19 +89,14 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		transform-origin: left;
 	}
 
-	a:hover span,
-	a:focus-visible span {
+	a:hover .label,
+	a:focus-visible .label {
 		max-width: 5rem;
 		margin-left: 0.45rem;
 		opacity: 1;
-		transform: translateY(0.04em);
 	}
 
 	a.active {
 		color: var(--color-text);
-	}
-
-	a.active :global(.lucide) {
-		fill: currentColor;
 	}
 </style>
