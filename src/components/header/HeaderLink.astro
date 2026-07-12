@@ -20,13 +20,11 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
 		gap: 0.45rem;
 		min-width: 2.2rem;
 		min-height: 2.2rem;
 		padding: 0 0.55rem;
-		border-radius: 999px;
-		line-height: 1;
+		line-height: 1.2;
 		white-space: nowrap;
 		transition: color 160ms ease;
 	}
@@ -44,7 +42,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		max-width: 0;
 		overflow: hidden;
 		opacity: 0;
-		line-height: 1;
+		line-height: 1.2;
 		transform: translateX(-0.25rem);
 		transition:
 			max-width 180ms ease,
@@ -81,6 +79,5 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 
 	a.active {
 		color: var(--color-text);
-		font-weight: bolder;
 	}
 </style>
