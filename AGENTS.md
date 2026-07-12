@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Git Workflow
+
+After completing code or documentation changes, run verification when applicable, commit the changes, and push to the remote.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
