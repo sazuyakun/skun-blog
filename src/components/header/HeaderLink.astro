@@ -82,4 +82,8 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 	a.active {
 		color: var(--color-text);
 	}
+
+	a.active :global(.lucide) {
+		fill: currentColor;
+	}
 </style>
