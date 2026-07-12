@@ -28,7 +28,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		padding: 0 0.55rem;
 		line-height: 1.2;
 		white-space: nowrap;
-		transition: color 160ms ease;
+		transition: color 220ms ease;
 	}
 
 	.icon-wrap {
@@ -64,9 +64,9 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		opacity: 0;
 		line-height: 1.4;
 		transition:
-			margin-left 180ms ease,
-			max-width 180ms ease,
-			opacity 140ms ease;
+			margin-left 260ms ease,
+			max-width 260ms ease,
+			opacity 180ms ease 90ms;
 	}
 
 	a::before {
@@ -79,7 +79,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		background: var(--color-accent);
 		transform: scaleX(0);
 		transform-origin: right;
-		transition: transform 160ms ease;
+		transition: transform 260ms ease;
 	}
 
 	a:hover::before,
