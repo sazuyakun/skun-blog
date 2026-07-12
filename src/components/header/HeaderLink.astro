@@ -43,7 +43,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		overflow: hidden;
 		opacity: 0;
 		line-height: 1.2;
-		transform: translateX(-0.25rem);
+		transform: translate(-0.25rem, 0.04em);
 		transition:
 			margin-left 180ms ease,
 			max-width 180ms ease,
@@ -76,7 +76,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		max-width: 5rem;
 		margin-left: 0.45rem;
 		opacity: 1;
-		transform: translateX(0);
+		transform: translateY(0.04em);
 	}
 
 	a.active {
