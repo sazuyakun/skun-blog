@@ -50,7 +50,7 @@ Keep dummy/basic content for now. The about page will be planned later.
 
 ## Blog Page Plan
 
-V1 should use a plain chronological list.
+V1 should use a plain chronological list. Until posts exist, show a simple empty archive state with an RSS link.
 
 ## RSS Plan
 
