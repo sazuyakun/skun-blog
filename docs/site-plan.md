@@ -46,7 +46,7 @@ Do not include an extra personal journal sentence for now.
 
 ## About Page Plan
 
-Keep dummy/basic content for now. The about page will be planned later.
+Keep dummy/basic content for now. The about page should use the shared visual system, but the real personal details and contact/connect content will be planned later.
 
 ## Blog Page Plan
 
