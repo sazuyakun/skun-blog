@@ -60,7 +60,7 @@ The `_template.md` file is a draft-only writing template. It is excluded from `/
 
 Individual blog posts should not reuse the same landing-page shape as `/`, `/blog`, and `/about`. Post pages should feel more like a focused article: temporary hero image first, then centered title, description, and date metadata below the image. Keep blog titles smaller than the landing-page hero titles. Preserve the dark theme, orange blog accent, and balanced coding-journal details.
 
-Use `heroImageUrl` for temporary remote images during early design. Later, replace this with static/local images.
+Use `heroImageUrl` for temporary images during early design. It can point to a local `/public` path or a remote URL. Later, replace the placeholder with final static/local images.
 
 ## RSS Plan
 

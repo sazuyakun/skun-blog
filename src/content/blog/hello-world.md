@@ -2,7 +2,7 @@
 title: 'Hello World'
 description: 'A temporary first post to test the blog pipeline.'
 pubDate: '2026-07-19'
-heroImageUrl: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80'
+heroImageUrl: '/images/blog-placeholder.svg'
 ---
 
 This is a temporary first post.

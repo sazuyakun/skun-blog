@@ -9,7 +9,12 @@ const blog = defineCollection({
 		description: z.string(),
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
-		heroImageUrl: z.string().url().optional(),
+		heroImageUrl: z
+			.string()
+			.refine((value) => value.startsWith('/') || URL.canParse(value), {
+				message: 'heroImageUrl must be a local / path or a valid URL',
+			})
+			.optional(),
 		draft: z.boolean().optional(),
 	}),
 });
