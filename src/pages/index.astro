@@ -1,8 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
+import BlogPostList from '../components/blog/BlogPostList.astro';
 import EmptyState from '../components/EmptyState.astro';
 import SectionBlock from '../components/SectionBlock.astro';
 import Layout from '../layouts/Layout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== true))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -20,6 +26,12 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</section>
 
 	<SectionBlock eyebrow="latest" title="Writing" titleId="latest-title">
-		<EmptyState message="No posts published yet." href="/blog" label="Open the archive" />
+		{
+			latestPosts.length > 0 ? (
+				<BlogPostList posts={latestPosts} />
+			) : (
+				<EmptyState message="No posts published yet." href="/blog" label="Open the archive" />
+			)
+		}
 	</SectionBlock>
 </Layout>

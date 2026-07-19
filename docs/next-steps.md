@@ -12,28 +12,27 @@
 
 ## Near-Term Work
 
-1. Replace the homepage empty state with real latest writing.
-   - Use the blog content collection.
-   - Decide whether homepage writing should follow `order` or latest `pubDate`.
-   - Show a small number of posts, likely 1-3.
-
-2. Replace the temporary `Hello World` post with real content.
+1. Replace the temporary `Hello World` post with real content.
    - Keep `src/content/blog/_template.md` as the starting point for new posts.
    - Use `heroImageUrl` for local or remote post hero images.
 
-3. Write the first real About page content.
+2. Write the first real About page content.
    - Add a short intro.
    - Add current interests or project focus.
    - Add connection links when ready.
 
-4. Review mobile spacing and typography.
+3. Review mobile spacing and typography.
    - Check `/`, `/blog`, `/about`, and one post page.
    - Tune hero title sizes only if needed.
    - Keep the header in one horizontal row on mobile.
 
-5. Decide RSS ordering.
+4. Decide RSS ordering.
    - Current behavior can stay date-based.
    - If the blog is meant to be read in a manual sequence, RSS may also use `order`.
+
+## Completed
+
+- Homepage latest writing now uses the blog content collection, sorts by newest `pubDate`, and shows up to three published posts.
 
 ## Later Work
 
