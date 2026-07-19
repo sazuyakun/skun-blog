@@ -52,13 +52,15 @@ Keep dummy/basic content for now. The about page should use the shared visual sy
 
 V1 should use a plain chronological list. Until posts exist, show a simple empty archive state with an RSS link.
 
-Posts are stored as Markdown files in `src/content/blog/` using Astro content collections. Blog posts require `title`, `description`, and `pubDate` frontmatter. Optional fields are `updatedDate` and `draft`.
+Posts are stored as Markdown files in `src/content/blog/` using Astro content collections. Blog posts require `title`, `description`, and `pubDate` frontmatter. Optional fields are `updatedDate`, `heroImageUrl`, and `draft`.
 
 The `_template.md` file is a draft-only writing template. It is excluded from `/blog`, post routes, and RSS.
 
 ## Blog Post Layout
 
-Individual blog posts should not reuse the same landing-page shape as `/`, `/blog`, and `/about`. Post pages should feel more like a focused article: centered header, clear title/description/date metadata, and a distinct framed editorial treatment while preserving the dark theme, orange blog accent, and balanced coding-journal details.
+Individual blog posts should not reuse the same landing-page shape as `/`, `/blog`, and `/about`. Post pages should feel more like a focused article: temporary hero image first, then centered title, description, and date metadata below the image. Keep blog titles smaller than the landing-page hero titles. Preserve the dark theme, orange blog accent, and balanced coding-journal details.
+
+Use `heroImageUrl` for temporary remote images during early design. Later, replace this with static/local images.
 
 ## RSS Plan
 

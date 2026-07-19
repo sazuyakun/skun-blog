@@ -6,9 +6,10 @@ interface Props {
 	description: string;
 	pubDate: Date;
 	updatedDate?: Date;
+	heroImageUrl?: string;
 }
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImageUrl } = Astro.props;
 const formattedPubDate = pubDate.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'long',
@@ -25,19 +26,26 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	<article class="post" aria-labelledby="post-title">
 		<header class="post-header">
 			<a class="back-link" href="/blog">Back to blog</a>
-			<div class="post-card">
-				<p class="post-kicker">/blog/post</p>
-				<h1 id="post-title">{title}</h1>
-				<p class="post-description">{description}</p>
-				<div class="post-meta" aria-label="Post metadata">
-					<time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
-					{
-						updatedDate && (
-							<span>
-								Updated <time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time>
-							</span>
-						)
-					}
+			<div class:list={['post-card', { 'has-image': heroImageUrl }]}>
+				{
+					heroImageUrl && (
+						<img class="post-image" src={heroImageUrl} alt="" loading="eager" decoding="async" />
+					)
+				}
+				<div class="post-heading">
+					<p class="post-kicker">/blog/post</p>
+					<h1 id="post-title">{title}</h1>
+					<p class="post-description">{description}</p>
+					<div class="post-meta" aria-label="Post metadata">
+						<time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
+						{
+							updatedDate && (
+								<span>
+									Updated <time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time>
+								</span>
+							)
+						}
+					</div>
 				</div>
 			</div>
 		</header>
@@ -85,6 +93,11 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		padding: clamp(2rem, 7vw, 4.75rem) clamp(1.25rem, 6vw, 4rem);
 	}
 
+	.post-card.has-image {
+		overflow: hidden;
+		padding: 0;
+	}
+
 	.post-card::before,
 	.post-card::after {
 		position: absolute;
@@ -106,6 +119,19 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		bottom: 1rem;
 	}
 
+	.post-image {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 8.5;
+		object-fit: cover;
+		border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
+		filter: saturate(0.72) contrast(1.08) brightness(0.78);
+	}
+
+	.post-heading {
+		padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 6vw, 4rem);
+	}
+
 	.post-kicker {
 		max-width: none;
 		margin-bottom: 1.25rem;
@@ -117,9 +143,9 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	.post-header h1 {
-		max-width: 11ch;
+		max-width: 14ch;
 		margin: 0 auto 1.25rem;
-		font-size: clamp(3.25rem, 13vw, 7.75rem);
+		font-size: clamp(2.25rem, 8vw, 4.75rem);
 	}
 
 	.post-header h1::before {
@@ -206,10 +232,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	@media (max-width: 640px) {
-		.post-header {
-			text-align: left;
-		}
-
 		.back-link {
 			margin-bottom: 1.5rem;
 		}
@@ -219,14 +241,8 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 			padding: 2rem 1.1rem;
 		}
 
-		.post-header h1,
-		.post-description {
-			margin-right: 0;
-			margin-left: 0;
-		}
-
-		.post-meta {
-			justify-content: flex-start;
+		.post-image {
+			aspect-ratio: 4 / 3;
 		}
 	}
 </style>
