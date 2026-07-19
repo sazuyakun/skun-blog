@@ -25,7 +25,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 <Layout title={title} description={description}>
 	<article class="post" aria-labelledby="post-title">
 		<header class="post-header">
-			<a class="back-link" href="/blog">Back to blog</a>
 			<div class:list={['post-card', { 'has-image': heroImageUrl }]}>
 				{
 					heroImageUrl && (
@@ -61,23 +60,8 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	.post-header {
-		padding: clamp(0.5rem, 3vw, 1.5rem) 0 clamp(3rem, 8vw, 4.5rem);
+		padding: clamp(0.25rem, 2vw, 1rem) 0 clamp(3rem, 8vw, 4.5rem);
 		text-align: center;
-	}
-
-	.back-link {
-		display: inline-flex;
-		margin-bottom: clamp(2rem, 6vw, 4rem);
-		color: var(--color-muted);
-		font-size: 0.9rem;
-		font-weight: 560;
-		text-decoration: none;
-	}
-
-	.back-link::before {
-		content: "<-";
-		margin-right: 0.45rem;
-		color: var(--color-accent);
 	}
 
 	.post-card {
@@ -231,10 +215,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	@media (max-width: 640px) {
-		.back-link {
-			margin-bottom: 1.5rem;
-		}
-
 		.post-card {
 			border-radius: 1rem;
 			padding: 2rem 1.1rem;
