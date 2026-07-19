@@ -12,8 +12,7 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 	<nav>
 		<a class="site-title" href="/" aria-label={`${SITE_TITLE} home`}>
-			<span class="mark">*</span>
-			{SITE_TITLE}
+			<img src="/images/main_logo.png" alt="" width="48" height="48" />
 		</a>
 		<div>
 			<HeaderLink href="/" label="Home">
@@ -56,13 +55,13 @@ import HeaderLink from './HeaderLink.astro';
 	.site-title {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.5rem;
-		font-weight: 700;
+		line-height: 0;
 	}
 
-	.mark {
-		color: var(--color-accent);
-		font-weight: 800;
+	.site-title img {
+		display: block;
+		width: clamp(2rem, 5vw, 2.45rem);
+		height: auto;
 	}
 
 	nav div {
