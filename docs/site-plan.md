@@ -56,6 +56,10 @@ Posts are stored as Markdown files in `src/content/blog/` using Astro content co
 
 The `_template.md` file is a draft-only writing template. It is excluded from `/blog`, post routes, and RSS.
 
+## Blog Post Layout
+
+Individual blog posts should not reuse the same landing-page shape as `/`, `/blog`, and `/about`. Post pages should feel more like a focused article: centered header, clear title/description/date metadata, and a distinct framed editorial treatment while preserving the dark theme, orange blog accent, and balanced coding-journal details.
+
 ## RSS Plan
 
 RSS should use the same blog content collection as `/blog`, excluding drafts.
