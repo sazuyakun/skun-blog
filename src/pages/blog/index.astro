@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	(a, b) => a.data.order - b.data.order,
 );
 
 const formatDate = (date: Date) =>
@@ -17,9 +17,9 @@ const formatDate = (date: Date) =>
 <Layout title="Blog" description="Blog posts from Skun Blog">
 	<section class="page-hero" aria-labelledby="blog-title">
 		<p class="eyebrow">/blog</p>
-		<h1 id="blog-title">Chronological writing.</h1>
+		<h1 id="blog-title">Ordered writing.</h1>
 		<p class="lede">
-			Posts, notes, and experiments will collect here in reverse chronological order.
+			Posts, notes, and experiments will collect here in the order they are meant to be read.
 		</p>
 		<div class="actions" aria-label="Blog links">
 			<a class="text-link" href="/rss.xml">RSS feed</a>

@@ -50,9 +50,11 @@ Keep dummy/basic content for now. The about page should use the shared visual sy
 
 ## Blog Page Plan
 
-V1 should use a plain chronological list. Until posts exist, show a simple empty archive state with an RSS link.
+V1 should use a plain ordered list. Until posts exist, show a simple empty archive state with an RSS link.
 
-Posts are stored as Markdown files in `src/content/blog/` using Astro content collections. Blog posts require `title`, `description`, and `pubDate` frontmatter. Optional fields are `updatedDate`, `heroImageUrl`, and `draft`.
+Posts are stored as Markdown files in `src/content/blog/` using Astro content collections. Blog posts require `title`, `description`, `order`, and `pubDate` frontmatter. Optional fields are `updatedDate`, `heroImageUrl`, and `draft`.
+
+The `/blog` route sorts published posts by ascending `order`. `order: 1` appears first in the list.
 
 The `_template.md` file is a draft-only writing template. It is excluded from `/blog`, post routes, and RSS.
 

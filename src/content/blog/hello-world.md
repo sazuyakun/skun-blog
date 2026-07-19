@@ -1,6 +1,7 @@
 ---
 title: 'Hello World'
 description: 'A temporary first post to test the blog pipeline.'
+order: 1
 pubDate: '2026-07-19'
 heroImageUrl: '/images/blog-placeholder.svg'
 ---
