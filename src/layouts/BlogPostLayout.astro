@@ -32,7 +32,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 					)
 				}
 				<div class="post-heading">
-					<p class="post-kicker">/blog/post</p>
 					<h1 id="post-title">{title}</h1>
 					<p class="post-description">{description}</p>
 					<div class="post-meta" aria-label="Post metadata">
@@ -113,16 +112,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 
 	.post-heading {
 		padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 6vw, 4rem);
-	}
-
-	.post-kicker {
-		max-width: none;
-		margin-bottom: 1.25rem;
-		color: var(--color-accent);
-		font-size: 0.85rem;
-		font-weight: 650;
-		letter-spacing: 0.1em;
-		text-transform: lowercase;
 	}
 
 	.post-header h1 {
