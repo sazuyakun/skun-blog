@@ -52,8 +52,12 @@ Keep dummy/basic content for now. The about page should use the shared visual sy
 
 V1 should use a plain chronological list. Until posts exist, show a simple empty archive state with an RSS link.
 
+Posts are stored as Markdown files in `src/content/blog/` using Astro content collections. Blog posts require `title`, `description`, and `pubDate` frontmatter. Optional fields are `updatedDate` and `draft`.
+
+The `_template.md` file is a draft-only writing template. It is excluded from `/blog`, post routes, and RSS.
+
 ## RSS Plan
 
-To be decided.
+RSS should use the same blog content collection as `/blog`, excluding drafts.
 
 ## Open Questions

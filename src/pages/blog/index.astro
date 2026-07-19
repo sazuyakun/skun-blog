@@ -1,7 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const posts: Array<{ date: string; title: string; href: string }> = [];
+const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const formatDate = (date: Date) =>
+	date.toLocaleDateString('en', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
 ---
 
 <Layout title="Blog" description="Blog posts from Skun Blog">
@@ -27,8 +37,8 @@ const posts: Array<{ date: string; title: string; href: string }> = [];
 				<ol class="post-list">
 					{posts.map((post) => (
 						<li>
-							<a href={post.href}>{post.title}</a>
-							<time datetime={post.date}>{post.date}</time>
+							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
 						</li>
 					))}
 				</ol>
