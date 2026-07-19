@@ -1,17 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import BlogPostList from '../../components/blog/BlogPostList.astro';
+import EmptyState from '../../components/EmptyState.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import Layout from '../../layouts/Layout.astro';
 
 const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort(
 	(a, b) => a.data.order - b.data.order,
 );
 
-const formatDate = (date: Date) =>
-	date.toLocaleDateString('en', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-	});
 ---
 
 <Layout title="Blog" description="Blog posts from Skun Blog">
@@ -27,62 +24,13 @@ const formatDate = (date: Date) =>
 		</div>
 	</section>
 
-	<section class="section-grid" aria-labelledby="archive-title">
-		<div class="section-heading">
-			<p class="eyebrow">archive</p>
-			<h2 id="archive-title">Posts</h2>
-		</div>
+	<SectionBlock eyebrow="archive" title="Posts" titleId="archive-title">
 		{
 			posts.length > 0 ? (
-				<ol class="post-list">
-					{posts.map((post) => (
-						<li>
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-							<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-						</li>
-					))}
-				</ol>
+				<BlogPostList posts={posts} />
 			) : (
-				<div class="empty-state">
-					<p>No posts published yet.</p>
-					<a class="text-link" href="/rss.xml">Subscribe for later</a>
-				</div>
+				<EmptyState message="No posts published yet." href="/rss.xml" label="Subscribe for later" />
 			)
 		}
-	</section>
+	</SectionBlock>
 </Layout>
-
-<style>
-	.post-list {
-		display: grid;
-		gap: 1rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.post-list li {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 1rem;
-		padding: 1rem 0;
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.post-list a {
-		font-weight: 620;
-		text-decoration: none;
-	}
-
-	time {
-		color: var(--color-subtle);
-		font-size: 0.9rem;
-	}
-
-	@media (max-width: 640px) {
-		.post-list li {
-			grid-template-columns: 1fr;
-			gap: 0.25rem;
-		}
-	}
-</style>

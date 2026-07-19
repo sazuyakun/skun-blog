@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+	posts: CollectionEntry<'blog'>[];
+};
+
+const { posts } = Astro.props;
+
+const formatDate = (date: Date) =>
+	date.toLocaleDateString('en', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+---
+
+<ol class="post-list">
+	{
+		posts.map((post) => (
+			<li>
+				<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+				<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.post-list {
+		display: grid;
+		gap: 1rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.post-list li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 1rem;
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.post-list a {
+		font-weight: 620;
+		text-decoration: none;
+	}
+
+	time {
+		color: var(--color-subtle);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 640px) {
+		.post-list li {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+	}
+</style>

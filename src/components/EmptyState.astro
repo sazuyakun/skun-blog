@@ -1,0 +1,41 @@
+---
+type Props = {
+	message: string;
+	href: string;
+	label: string;
+};
+
+const { message, href, label } = Astro.props;
+---
+
+<div class="empty-state">
+	<p>{message}</p>
+	<a class="text-link" href={href}>{label}</a>
+</div>
+
+<style>
+	.empty-state {
+		position: relative;
+		padding: 1.25rem 0 1.25rem 1.25rem;
+	}
+
+	.empty-state::before {
+		content: "";
+		position: absolute;
+		top: 0.45rem;
+		bottom: 0.45rem;
+		left: 0;
+		width: 1px;
+		background: color-mix(in srgb, var(--color-accent) 70%, var(--color-border));
+	}
+
+	.empty-state p {
+		margin-bottom: 0.75rem;
+	}
+
+	@media (max-width: 640px) {
+		.empty-state {
+			padding-top: 0.5rem;
+		}
+	}
+</style>
