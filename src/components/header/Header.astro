@@ -1,10 +1,4 @@
 ---
-import House from 'phosphor-astro/House.astro';
-import HouseFill from 'phosphor-astro/HouseFill.astro';
-import Notebook from 'phosphor-astro/Notebook.astro';
-import NotebookFill from 'phosphor-astro/NotebookFill.astro';
-import User from 'phosphor-astro/User.astro';
-import UserFill from 'phosphor-astro/UserFill.astro';
 import { SITE_TITLE } from '../../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
@@ -13,27 +7,19 @@ import HeaderLink from './HeaderLink.astro';
 	<nav>
 		<a class="site-title" href="/" aria-label={`${SITE_TITLE} home`}>
 			<img src="/images/main_logo.png" alt="" width="48" height="48" />
+			<span>skun / field log</span>
 		</a>
-		<div>
-			<HeaderLink href="/" label="Home">
-				<House slot="icon" class="icon" aria-hidden="true" />
-				<HouseFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
-			</HeaderLink>
-			<HeaderLink href="/blog" label="Blog">
-				<Notebook slot="icon" class="icon" aria-hidden="true" />
-				<NotebookFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
-			</HeaderLink>
-			<HeaderLink href="/about" label="About">
-				<User slot="icon" class="icon" aria-hidden="true" />
-				<UserFill slot="active-icon" class="icon active-icon" aria-hidden="true" />
-			</HeaderLink>
+		<div class="nav-links">
+			<HeaderLink href="/" index="01" label="Home" />
+			<HeaderLink href="/blog" index="02" label="Writing" mobileLabel="Write" />
+			<HeaderLink href="/about" index="03" label="About" />
 		</div>
 	</nav>
 </header>
 <style>
 	header {
 		border-bottom: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
-		background: color-mix(in srgb, var(--color-background) 88%, transparent);
+		background: color-mix(in srgb, var(--color-background) 92%, transparent);
 	}
 
 	nav {
@@ -43,7 +29,7 @@ import HeaderLink from './HeaderLink.astro';
 		gap: 1rem;
 		width: min(var(--shell-width), calc(100% - 2rem));
 		margin: auto;
-		padding: 1.15rem 0;
+		padding: 1rem 0;
 	}
 
 	nav a {
@@ -56,20 +42,43 @@ import HeaderLink from './HeaderLink.astro';
 	.site-title {
 		display: inline-flex;
 		align-items: center;
+		gap: 0.8rem;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
 		line-height: 0;
 	}
 
 	.site-title img {
 		display: block;
-		width: clamp(2.25rem, 5vw, 2.75rem);
+		width: 2.25rem;
 		height: auto;
 		filter: brightness(0) invert(1);
 	}
 
-	nav div {
+	.site-title span {
+		color: var(--color-subtle);
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		font-weight: 650;
+		letter-spacing: 0.12em;
+		line-height: 1;
+		text-transform: uppercase;
+	}
+
+	.nav-links {
 		display: flex;
 		flex: 0 0 auto;
-		gap: clamp(0.35rem, 2vw, 0.75rem);
+		gap: clamp(0.6rem, 3vw, 2rem);
 		color: var(--color-muted);
+	}
+
+	@media (max-width: 640px) {
+		.site-title span {
+			display: none;
+		}
+
+		.nav-links {
+			gap: clamp(0.2rem, 2vw, 0.75rem);
+		}
 	}
 </style>

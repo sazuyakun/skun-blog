@@ -3,9 +3,10 @@ import type { CollectionEntry } from 'astro:content';
 
 type Props = {
 	posts: CollectionEntry<'blog'>[];
+	variant?: 'compact' | 'archive';
 };
 
-const { posts } = Astro.props;
+const { posts, variant = 'archive' } = Astro.props;
 
 const formatDate = (date: Date) =>
 	date.toLocaleDateString('en', {
@@ -15,12 +16,19 @@ const formatDate = (date: Date) =>
 	});
 ---
 
-<ol class="post-list">
+<ol class:list={['post-list', variant]}>
 	{
 		posts.map((post) => (
 			<li>
-				<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-				<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+				<a href={`/blog/${post.id}/`}>
+					<span class="sequence" aria-hidden="true">{String(post.data.order).padStart(3, '0')}</span>
+					<span class="post-copy">
+						<strong>{post.data.title}</strong>
+						<span class="description">{post.data.description}</span>
+					</span>
+					<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+					<span class="arrow" aria-hidden="true">---&gt;</span>
+				</a>
 			</li>
 		))
 	}
@@ -28,35 +36,141 @@ const formatDate = (date: Date) =>
 
 <style>
 	.post-list {
-		display: grid;
-		gap: 1rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		border-top: 1px solid var(--color-border);
 	}
 
 	.post-list li {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 1rem;
-		padding: 1rem 0;
 		border-bottom: 1px solid var(--color-border);
 	}
 
 	.post-list a {
-		font-weight: 620;
+		position: relative;
+		display: grid;
+		grid-template-columns: 3.5rem minmax(0, 1fr) auto auto;
+		align-items: center;
+		gap: clamp(1rem, 3vw, 2rem);
+		padding: clamp(1.4rem, 3vw, 2rem) 1rem clamp(1.4rem, 3vw, 2rem) 0;
 		text-decoration: none;
+		transition: background-color 160ms ease, color 160ms ease;
+	}
+
+	.post-list a::before {
+		position: absolute;
+		top: 20%;
+		bottom: 20%;
+		left: 0;
+		width: 1px;
+		background: var(--color-accent);
+		content: "";
+		transform: scaleY(0);
+		transition: transform 160ms ease;
+	}
+
+	.post-list a:hover,
+	.post-list a:focus-visible {
+		background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 60%);
+		color: var(--color-text);
+	}
+
+	.post-list a:hover::before,
+	.post-list a:focus-visible::before {
+		transform: scaleY(1);
+	}
+
+	.post-list a:focus-visible {
+		outline-offset: -2px;
+	}
+
+	.sequence,
+	time,
+	.arrow {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		font-weight: 650;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.sequence {
+		color: var(--color-accent);
+		text-align: center;
+	}
+
+	.post-copy {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.post-copy strong {
+		font-size: clamp(1.2rem, 3vw, 1.65rem);
+		font-weight: 620;
+		letter-spacing: -0.025em;
+		line-height: 1.2;
+	}
+
+	.description {
+		max-width: 34rem;
+		color: var(--color-muted);
+		font-family: var(--font-reading);
+		font-size: 1.05rem;
+		line-height: 1.4;
 	}
 
 	time {
 		color: var(--color-subtle);
-		font-size: 0.9rem;
+		white-space: nowrap;
+	}
+
+	.arrow {
+		color: var(--color-accent);
+		transition: transform 160ms ease;
+	}
+
+	a:hover .arrow,
+	a:focus-visible .arrow {
+		transform: translateX(0.25rem);
+	}
+
+	.compact a {
+		grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+	}
+
+	.compact .arrow {
+		display: none;
 	}
 
 	@media (max-width: 640px) {
-		.post-list li {
-			grid-template-columns: 1fr;
-			gap: 0.25rem;
+		.post-list a,
+		.compact a {
+			grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+			align-items: start;
+			gap: 0.75rem;
+			padding-right: 0;
+		}
+
+		.post-copy strong {
+			font-size: 1.2rem;
+		}
+
+		.description {
+			font-size: 1rem;
+		}
+
+		time {
+			grid-column: 2;
+		}
+
+		.arrow {
+			grid-column: 3;
+			grid-row: 1;
+		}
+
+		.compact time {
+			grid-column: 3;
+			grid-row: 1;
 		}
 	}
 </style>

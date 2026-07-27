@@ -3,22 +3,61 @@ const today = new Date();
 ---
 
 <footer>
-	<span class="glyph">::</span>
-	<span>&copy; {today.getFullYear()} Skun Blog</span>
+	<div>
+		<span class="end-mark">End of log</span>
+		<nav aria-label="Footer links">
+			<a href="/rss.xml">RSS</a>
+			<a href="/about">Colophon</a>
+		</nav>
+		<span>&copy; {today.getFullYear()} Skun Blog</span>
+	</div>
 </footer>
 <style>
 	footer {
-		display: flex;
-		justify-content: center;
-		gap: 0.55rem;
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
 		color: var(--color-muted);
-		font-size: 0.9rem;
-		padding: 2.25rem 1rem;
-		text-align: center;
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		padding: 2rem var(--gutter);
+		text-transform: uppercase;
 	}
 
-	.glyph {
+	footer > div {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: 2rem;
+		width: min(var(--shell-width), 100%);
+		margin: auto;
+	}
+
+	footer > div > :last-child {
+		text-align: right;
+	}
+
+	.end-mark {
 		color: var(--color-accent);
+	}
+
+	nav {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	@media (max-width: 640px) {
+		footer > div {
+			grid-template-columns: 1fr auto;
+			gap: 0.75rem;
+		}
+
+		nav {
+			display: none;
+		}
 	}
 </style>

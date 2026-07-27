@@ -4,12 +4,14 @@ import Layout from './Layout.astro';
 interface Props {
 	title: string;
 	description: string;
+	order: number;
 	pubDate: Date;
 	updatedDate?: Date;
 	heroImageUrl?: string;
 }
 
-const { title, description, pubDate, updatedDate, heroImageUrl } = Astro.props;
+const { title, description, order, pubDate, updatedDate, heroImageUrl } = Astro.props;
+const sequence = String(order).padStart(3, '0');
 const formattedPubDate = pubDate.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'long',
@@ -24,32 +26,63 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 
 <Layout title={title} description={description}>
 	<article class="post" aria-labelledby="post-title">
+		<div class="post-register">
+			<a href="/blog">Writing</a>
+			<span>/</span>
+			<span>{sequence}</span>
+			<span>/</span>
+			<span>{title}</span>
+		</div>
 		<header class="post-header">
-			<div class:list={['post-card', { 'has-image': heroImageUrl }]}>
-				{
-					heroImageUrl && (
-						<img class="post-image" src={heroImageUrl} alt="" loading="eager" decoding="async" />
-					)
-				}
-				<div class="post-heading">
+			{
+				heroImageUrl && (
+					<div class="image-plate">
+						<span class="plate-label">Image plate / {sequence}</span>
+						<img
+							class="post-image"
+							src={heroImageUrl}
+							alt=""
+							width="1600"
+							height="850"
+							loading="eager"
+							decoding="async"
+						/>
+					</div>
+				)
+			}
+			<div class="post-heading signal-rail">
+				<div>
+					<p class="eyebrow">Field note / {sequence}</p>
 					<h1 id="post-title">{title}</h1>
 					<p class="post-description">{description}</p>
-					<div class="post-meta" aria-label="Post metadata">
-						<time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
-						{
-							updatedDate && (
-								<span>
-									Updated <time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time>
-								</span>
-							)
-						}
-					</div>
 				</div>
+				<dl class="post-meta" aria-label="Post metadata">
+					<div>
+						<dt>Filed</dt>
+						<dd><time datetime={pubDate.toISOString()}>{formattedPubDate}</time></dd>
+					</div>
+					<div><dt>Type</dt><dd>Field note</dd></div>
+					{
+						updatedDate && (
+							<div>
+								<dt>Revised</dt>
+								<dd><time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time></dd>
+							</div>
+						)
+					}
+				</dl>
 			</div>
 		</header>
 		<div class="prose">
 			<slot />
 		</div>
+		<footer class="post-footer">
+			<span>End / note {sequence}</span>
+			<div>
+				<a href="/blog">Back to manifest</a>
+				<a href="/rss.xml">RSS feed</a>
+			</div>
+		</footer>
 	</article>
 </Layout>
 
@@ -58,105 +91,142 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		--post-width: 680px;
 	}
 
-	.post-header {
-		padding: 0 0 clamp(3rem, 8vw, 4.5rem);
-		text-align: center;
-	}
-
-	.post-card {
-		position: relative;
-		max-width: min(100%, 820px);
-		margin: 0 auto;
-		border: 1px solid color-mix(in srgb, var(--color-accent) 32%, var(--color-border));
-		border-radius: 1.25rem;
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 58%),
-			var(--color-background);
-		padding: clamp(2rem, 7vw, 4.75rem) clamp(1.25rem, 6vw, 4rem);
-	}
-
-	.post-card.has-image {
-		overflow: hidden;
-		padding: 0;
-	}
-
-	.post-card::before,
-	.post-card::after {
-		position: absolute;
-		color: var(--color-accent);
-		font-size: 0.8rem;
-		font-weight: 700;
+	.post-register {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+		margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+		color: var(--color-subtle);
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		font-weight: 650;
 		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 
-	.post-card::before {
-		content: "/*";
+	.post-register a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	.post-header {
+		padding-bottom: clamp(4rem, 9vw, 7rem);
+	}
+
+	.image-plate {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: clamp(3rem, 7vw, 5rem);
+		border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
+		background: var(--color-surface);
+	}
+
+	.plate-label {
+		position: absolute;
+		z-index: 1;
 		top: 1rem;
 		left: 1rem;
-	}
-
-	.post-card::after {
-		content: "*/";
-		right: 1rem;
-		bottom: 1rem;
+		border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+		background: color-mix(in srgb, var(--color-background) 86%, transparent);
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		font-weight: 650;
+		letter-spacing: 0.1em;
+		padding: 0.4rem 0.55rem;
+		text-transform: uppercase;
 	}
 
 	.post-image {
 		display: block;
 		width: 100%;
-		aspect-ratio: 16 / 8.5;
+		height: auto;
+		aspect-ratio: 16 / 7.5;
 		object-fit: cover;
-		border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
-		filter: saturate(0.72) contrast(1.08) brightness(0.78);
+		filter: saturate(0.62) contrast(1.12) brightness(0.7);
 	}
 
 	.post-heading {
-		padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 6vw, 4rem);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 13rem;
+		align-items: end;
+		gap: clamp(3rem, 9vw, 8rem);
 	}
 
 	.post-header h1 {
-		max-width: 14ch;
-		margin: 0 auto 1.25rem;
-		font-size: clamp(2.25rem, 8vw, 4.75rem);
-	}
-
-	.post-header h1::before {
-		display: none;
+		max-width: 10ch;
+		margin-bottom: 1.25rem;
+		font-size: clamp(3rem, 8vw, 6rem);
 	}
 
 	.post-description {
-		max-width: 34rem;
-		margin: 0 auto;
-		font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-		line-height: 1.5;
+		max-width: 36rem;
+		font-family: var(--font-reading);
+		font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+		line-height: 1.45;
 	}
 
 	.post-meta {
-		display: inline-flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.5rem 1rem;
-		margin-top: 1.75rem;
+		margin: 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.post-meta div {
+		display: grid;
+		grid-template-columns: 4rem 1fr;
+		gap: 0.75rem;
+		padding: 0.7rem 0;
+		border-bottom: 1px solid var(--color-border);
+		font-family: var(--font-mono);
+		font-size: 0.63rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.post-meta dt {
 		color: var(--color-subtle);
-		font-size: 0.95rem;
+	}
+
+	.post-meta dd {
+		margin: 0;
+		color: var(--color-muted);
 	}
 
 	.prose {
 		max-width: var(--post-width);
 		margin: 0 auto;
-		padding-top: 2rem;
+		padding-top: clamp(2.5rem, 6vw, 4rem);
 		border-top: 1px solid var(--color-border);
+		font-family: var(--font-reading);
+		font-size: clamp(1.1rem, 2vw, 1.22rem);
+		line-height: 1.72;
 	}
 
 	.prose :global(h2) {
-		margin: 2.5rem 0 1rem;
+		margin: 3.5rem 0 1.15rem;
+		color: var(--color-text);
+		font-family: var(--font-sans);
 		font-size: clamp(1.5rem, 4vw, 2.25rem);
 		font-weight: 620;
 		letter-spacing: -0.04em;
 	}
 
+	.prose :global(h2::before) {
+		display: block;
+		margin-bottom: 0.65rem;
+		color: var(--color-accent);
+		content: "Section /";
+		font-family: var(--font-mono);
+		font-size: 0.62rem;
+		font-weight: 650;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
 	.prose :global(h3) {
-		margin: 2rem 0 0.75rem;
+		margin: 2.75rem 0 0.75rem;
+		color: var(--color-text);
+		font-family: var(--font-sans);
 		font-size: 1.35rem;
 	}
 
@@ -168,16 +238,44 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		margin: 0 0 1.25rem;
 	}
 
+	.prose :global(p) {
+		max-width: none;
+		color: var(--color-muted);
+	}
+
 	.prose :global(ul),
 	.prose :global(ol) {
 		color: var(--color-muted);
 		padding-left: 1.25rem;
 	}
 
+	.prose :global(li + li) {
+		margin-top: 0.4rem;
+	}
+
 	.prose :global(blockquote) {
-		border-left: 1px solid var(--color-accent);
-		color: var(--color-muted);
-		padding-left: 1.25rem;
+		margin: 2rem 0;
+		border-left: 2px solid var(--color-accent);
+		color: var(--color-text);
+		font-size: 1.2em;
+		font-style: italic;
+		padding: 0.25rem 0 0.25rem 1.5rem;
+	}
+
+	.prose :global(a) {
+		color: var(--color-text);
+		text-decoration-color: var(--color-accent);
+	}
+
+	.prose :global(strong) {
+		color: var(--color-text);
+		font-weight: 650;
+	}
+
+	.prose :global(hr) {
+		margin: 3rem 0;
+		border: 0;
+		border-top: 1px solid var(--color-border);
 	}
 
 	.prose :global(code) {
@@ -185,6 +283,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		border-radius: 0.35rem;
 		background: var(--color-surface);
 		color: var(--color-text);
+		font-family: var(--font-mono);
 		font-size: 0.9em;
 		padding: 0.1rem 0.3rem;
 	}
@@ -194,7 +293,10 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		border: 1px solid var(--color-border);
 		border-radius: 0.75rem;
 		background: var(--color-surface);
-		padding: 1rem;
+		font-family: var(--font-mono);
+		font-size: 0.88rem;
+		line-height: 1.65;
+		padding: 1.25rem;
 	}
 
 	.prose :global(pre code) {
@@ -203,14 +305,74 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		padding: 0;
 	}
 
-	@media (max-width: 640px) {
-		.post-card {
-			border-radius: 1rem;
-			padding: 2rem 1.1rem;
+	.prose :global(table) {
+		display: block;
+		overflow-x: auto;
+		width: 100%;
+		margin: 2rem 0;
+		border-collapse: collapse;
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
+	}
+
+	.prose :global(th),
+	.prose :global(td) {
+		border-bottom: 1px solid var(--color-border);
+		padding: 0.75rem 1rem 0.75rem 0;
+		text-align: left;
+	}
+
+	.prose :global(th) {
+		color: var(--color-text);
+	}
+
+	.post-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		max-width: var(--post-width);
+		margin: clamp(4rem, 9vw, 7rem) auto 0;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-border);
+		color: var(--color-subtle);
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		font-weight: 650;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.post-footer div {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.post-footer a {
+		color: var(--color-muted);
+		text-decoration: none;
+	}
+
+	@media (max-width: 760px) {
+		.post-heading {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
 		}
 
 		.post-image {
-			aspect-ratio: 4 / 3;
+			aspect-ratio: 4 / 2.7;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.post-register span:last-child {
+			display: none;
+		}
+
+		.post-footer {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 1rem;
 		}
 	}
 </style>
