@@ -10,14 +10,9 @@ interface Props {
 	heroImageUrl?: string;
 }
 
-const { title, description, order, pubDate, updatedDate, heroImageUrl } = Astro.props;
+const { title, description, order, pubDate, heroImageUrl } = Astro.props;
 const sequence = String(order).padStart(3, '0');
 const formattedPubDate = pubDate.toLocaleDateString('en', {
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
-});
-const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'long',
 	day: 'numeric',
@@ -48,21 +43,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 					<h1 id="post-title">{title}</h1>
 					<p class="post-description">{description}</p>
 				</div>
-				<dl class="post-meta" aria-label="Post metadata">
-					<div>
-						<dt>Filed</dt>
-						<dd><time datetime={pubDate.toISOString()}>{formattedPubDate}</time></dd>
-					</div>
-					<div><dt>Type</dt><dd>Field note</dd></div>
-					{
-						updatedDate && (
-							<div>
-								<dt>Revised</dt>
-								<dd><time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time></dd>
-							</div>
-						)
-					}
-				</dl>
+				<time class="post-date" datetime={pubDate.toISOString()}>{formattedPubDate}</time>
 			</div>
 		</header>
 		<div class="prose">
@@ -84,13 +65,13 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	.post-header {
-		padding-bottom: clamp(4rem, 9vw, 7rem);
+		padding-bottom: clamp(2.5rem, 5vw, 4rem);
 	}
 
 	.image-plate {
 		position: relative;
 		overflow: hidden;
-		margin-bottom: clamp(3rem, 7vw, 5rem);
+		margin-bottom: clamp(2rem, 4vw, 3rem);
 		border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
 		background: var(--color-surface);
 	}
@@ -108,13 +89,13 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) 13rem;
 		align-items: end;
-		gap: clamp(3rem, 9vw, 8rem);
+		gap: clamp(2rem, 7vw, 6rem);
 	}
 
 	.post-header h1 {
 		max-width: 10ch;
-		margin-bottom: 1.25rem;
-		font-size: clamp(2.75rem, 6vw, 4.75rem);
+		margin-bottom: 1rem;
+		font-size: clamp(2.5rem, 5vw, 4rem);
 	}
 
 	.post-description {
@@ -124,44 +105,29 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		line-height: 1.45;
 	}
 
-	.post-meta {
-		margin: 0;
+	.post-date {
+		display: block;
+		padding: 0.8rem 0;
 		border-top: 1px solid var(--color-border);
-	}
-
-	.post-meta div {
-		display: grid;
-		grid-template-columns: 4rem 1fr;
-		gap: 0.75rem;
-		padding: 0.7rem 0;
 		border-bottom: 1px solid var(--color-border);
-		font-family: var(--font-atkinson);
-		font-size: 0.63rem;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-	}
-
-	.post-meta dt {
-		color: var(--color-subtle);
-	}
-
-	.post-meta dd {
-		margin: 0;
 		color: var(--color-muted);
+		font-size: 0.75rem;
+		letter-spacing: 0.04em;
+		text-align: right;
 	}
 
 	.prose {
 		max-width: var(--post-width);
 		margin: 0 auto;
-		padding-top: clamp(2.5rem, 6vw, 4rem);
+		padding-top: clamp(1.75rem, 4vw, 2.5rem);
 		border-top: 1px solid var(--color-border);
 		font-family: var(--font-atkinson);
 		font-size: clamp(1.1rem, 2vw, 1.22rem);
-		line-height: 1.72;
+		line-height: 1.65;
 	}
 
 	.prose :global(h2) {
-		margin: 3.5rem 0 1.15rem;
+		margin: 2.5rem 0 1rem;
 		color: var(--color-text);
 		font-family: var(--font-atkinson);
 		font-size: clamp(1.5rem, 4vw, 2.25rem);
@@ -182,7 +148,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	}
 
 	.prose :global(h3) {
-		margin: 2.75rem 0 0.75rem;
+		margin: 2rem 0 0.75rem;
 		color: var(--color-text);
 		font-family: var(--font-atkinson);
 		font-size: 1.35rem;
@@ -193,7 +159,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	.prose :global(ol),
 	.prose :global(blockquote),
 	.prose :global(pre) {
-		margin: 0 0 1.25rem;
+		margin: 0 0 1rem;
 	}
 
 	.prose :global(p) {
@@ -290,7 +256,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		justify-content: space-between;
 		gap: 2rem;
 		max-width: var(--post-width);
-		margin: clamp(4rem, 9vw, 7rem) auto 0;
+		margin: clamp(3rem, 6vw, 4.5rem) auto 0;
 		padding-top: 1.5rem;
 		border-top: 1px solid var(--color-border);
 		color: var(--color-subtle);
@@ -314,7 +280,11 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	@media (max-width: 760px) {
 		.post-heading {
 			grid-template-columns: 1fr;
-			gap: 2.5rem;
+			gap: 1.5rem;
+		}
+
+		.post-date {
+			text-align: left;
 		}
 	}
 

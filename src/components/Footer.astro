@@ -1,4 +1,7 @@
 ---
+import SocialIcon from './SocialIcon.astro';
+import { SOCIALS } from '../consts';
+
 const today = new Date();
 ---
 
@@ -8,7 +11,23 @@ const today = new Date();
 		<nav aria-label="Footer links">
 			<a href="/rss.xml">RSS</a>
 		</nav>
-		<span>&copy; {today.getFullYear()} Skun Blog</span>
+		<div class="footer-meta">
+			<span>&copy; {today.getFullYear()} Skun Blog</span>
+			<nav class="social-icons" aria-label="Social profiles">
+				{
+					SOCIALS.map((social) => (
+						<a
+							href={social.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={`${social.name} (opens in a new tab)`}
+						>
+							<SocialIcon name={social.icon} />
+						</a>
+					))
+				}
+			</nav>
+		</div>
 	</div>
 </footer>
 <style>
@@ -32,21 +51,63 @@ const today = new Date();
 		margin: auto;
 	}
 
-	footer > div > :last-child {
-		text-align: right;
-	}
-
 	.end-mark {
+		display: flex;
+		align-items: center;
+		height: 1rem;
 		color: var(--color-accent);
+		line-height: 1;
 	}
 
 	nav {
 		display: flex;
+		align-items: center;
 		gap: 1.5rem;
 	}
 
 	a {
 		text-decoration: none;
+	}
+
+	footer > div > nav a,
+	.footer-meta > span {
+		display: flex;
+		align-items: center;
+		height: 1rem;
+		line-height: 1;
+	}
+
+	.footer-meta,
+	.social-icons {
+		display: flex;
+		align-items: center;
+	}
+
+	.footer-meta {
+		justify-content: flex-end;
+		gap: 1rem;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.social-icons {
+		gap: 0.65rem;
+	}
+
+	.social-icons a {
+		display: grid;
+		width: 1rem;
+		height: 1rem;
+		place-items: center;
+		color: var(--color-muted);
+		font-size: 1rem;
+		line-height: 1;
+		transition: color 160ms ease;
+	}
+
+	.social-icons a:hover,
+	.social-icons a:focus-visible {
+		color: var(--color-accent);
 	}
 
 	@media (max-width: 640px) {
