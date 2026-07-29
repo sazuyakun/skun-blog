@@ -26,13 +26,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 
 <Layout title={title} description={description}>
 	<article class="post" aria-labelledby="post-title">
-		<div class="post-register">
-			<a href="/blog">Writing</a>
-			<span>/</span>
-			<span>{sequence}</span>
-			<span>/</span>
-			<span>{title}</span>
-		</div>
 		<header class="post-header">
 			{
 				heroImageUrl && (
@@ -88,25 +81,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 
 <style>
 	.post {
-		--post-width: 680px;
-	}
-
-	.post-register {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.55rem;
-		margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
-		color: var(--color-subtle);
-		font-family: var(--font-atkinson);
-		font-size: 0.65rem;
-		font-weight: 650;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-
-	.post-register a {
-		color: var(--color-accent);
-		text-decoration: none;
+		--post-width: 780px;
 	}
 
 	.post-header {
@@ -141,7 +116,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		display: block;
 		width: 100%;
 		height: auto;
-		aspect-ratio: 16 / 7.5;
+		aspect-ratio: 10 / 4;
 		object-fit: cover;
 		filter: saturate(0.62) contrast(1.12) brightness(0.7);
 	}
@@ -156,7 +131,7 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 	.post-header h1 {
 		max-width: 10ch;
 		margin-bottom: 1.25rem;
-		font-size: clamp(3rem, 8vw, 6rem);
+		font-size: clamp(2.75rem, 6vw, 4.75rem);
 	}
 
 	.post-description {
@@ -358,17 +333,9 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 			grid-template-columns: 1fr;
 			gap: 2.5rem;
 		}
-
-		.post-image {
-			aspect-ratio: 4 / 2.7;
-		}
 	}
 
 	@media (max-width: 480px) {
-		.post-register span:last-child {
-			display: none;
-		}
-
 		.post-footer {
 			align-items: flex-start;
 			flex-direction: column;

@@ -5,18 +5,18 @@ import Layout from '../../layouts/Layout.astro';
 <Layout title="About" description="About Skun Blog">
 	<section class="profile" aria-labelledby="about-title">
 		<header class="profile-heading">
-			<p class="eyebrow">About / operator 03</p>
-			<h1 id="about-title">The person behind the notes.</h1>
+			<h1 class="eyebrow" id="about-title">About / operator 03</h1>
 		</header>
 
 		<div class="profile-body">
-			<aside class="identity-card" aria-label="Profile status">
-				<span class="card-index">Personnel record / S-26</span>
-				<span class="monogram" aria-hidden="true">S</span>
-				<div class="status">
-					<span>Status</span>
-					<strong>Biography in progress</strong>
+			<aside class="profile-note" aria-label="Personal note">
+				<span class="tape" aria-hidden="true"></span>
+				<span class="note-index">Personnel note / S-26</span>
+				<div class="portrait-placeholder" role="img" aria-label="Placeholder for a portrait photo">
+					<span>Photo / pending</span>
 				</div>
+				<p class="punchline">Building things to understand how they work.</p>
+				<span class="note-signature">S / 26</span>
 			</aside>
 
 			<div class="statement">
@@ -56,24 +56,14 @@ import Layout from '../../layouts/Layout.astro';
 	}
 
 	.profile-heading {
-		display: grid;
-		grid-template-columns: minmax(11rem, 0.55fr) minmax(0, 1.45fr);
-		align-items: start;
-		border-top: 1px solid var(--color-border);
 		border-bottom: 1px solid var(--color-border);
 	}
 
 	.profile-heading .eyebrow {
 		margin: 0;
-		padding: 1.5rem 1.5rem 1.5rem 0;
-	}
-
-	.profile-heading h1 {
-		max-width: 10ch;
-		margin: 0;
-		border-left: 1px solid var(--color-border);
-		font-size: clamp(3.25rem, 8vw, 7rem);
-		padding: clamp(2rem, 5vw, 4rem);
+		max-width: none;
+		padding-bottom: 1.5rem;
+		line-height: 1.1;
 	}
 
 	.profile-body {
@@ -83,33 +73,31 @@ import Layout from '../../layouts/Layout.astro';
 		margin-top: clamp(2.5rem, 6vw, 4.5rem);
 	}
 
-	.identity-card {
+	.profile-note {
 		position: relative;
-		display: flex;
-		min-height: 25rem;
-		flex-direction: column;
-		justify-content: space-between;
-		overflow: hidden;
-		border: 1px solid color-mix(in srgb, var(--color-accent) 50%, var(--color-border));
+		transform: rotate(-1.25deg);
 		background:
-			linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 55%),
+			linear-gradient(color-mix(in srgb, var(--color-accent) 7%, transparent), color-mix(in srgb, var(--color-accent) 2%, transparent)),
 			var(--color-surface);
-		padding: 1.25rem;
+		box-shadow: 0 1.5rem 3rem color-mix(in srgb, #000 32%, transparent);
+		padding: clamp(1.25rem, 3vw, 1.75rem);
+		animation: note-settle 420ms ease-out both;
 	}
 
-	.identity-card::after {
+	.tape {
 		position: absolute;
-		right: -3.5rem;
-		bottom: -3.5rem;
-		width: 8rem;
-		height: 8rem;
-		border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
-		content: "";
-		transform: rotate(45deg);
+		top: -0.8rem;
+		left: 50%;
+		width: 5.5rem;
+		height: 1.45rem;
+		transform: translateX(-50%) rotate(2deg);
+		background: color-mix(in srgb, var(--color-accent) 32%, #d8d0a5);
+		opacity: 0.72;
 	}
 
-	.card-index,
-	.status span {
+	.note-index,
+	.note-signature,
+	.portrait-placeholder span {
 		color: var(--color-accent);
 		font-size: 0.65rem;
 		font-weight: 700;
@@ -117,25 +105,44 @@ import Layout from '../../layouts/Layout.astro';
 		text-transform: uppercase;
 	}
 
-	.monogram {
-		align-self: center;
-		color: var(--color-accent);
-		font-size: clamp(9rem, 20vw, 14rem);
-		font-weight: 700;
-		line-height: 0.75;
-		opacity: 0.9;
+	.note-index {
+		display: block;
+		margin-bottom: 1rem;
 	}
 
-	.status {
-		display: grid;
-		gap: 0.35rem;
-		padding-top: 1rem;
-		border-top: 1px solid var(--color-border);
+	.portrait-placeholder {
+		position: relative;
+		display: flex;
+		align-items: end;
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+		background:
+			linear-gradient(135deg, transparent calc(50% - 0.5px), color-mix(in srgb, var(--color-accent) 18%, transparent) 50%, transparent calc(50% + 0.5px)),
+			linear-gradient(45deg, transparent calc(50% - 0.5px), color-mix(in srgb, var(--color-accent) 18%, transparent) 50%, transparent calc(50% + 0.5px)),
+			var(--color-background);
+		padding: 0.75rem;
 	}
 
-	.status strong {
-		font-size: 1rem;
+	.punchline {
+		margin: 1.25rem 0 1.5rem;
+		color: var(--color-text);
+		font-size: clamp(1.1rem, 2vw, 1.3rem);
 		font-weight: 400;
+		line-height: 1.35;
+	}
+
+	.note-signature {
+		display: block;
+		padding-top: 0.9rem;
+		border-top: 1px solid var(--color-border);
+		text-align: right;
+	}
+
+	@keyframes note-settle {
+		from {
+			opacity: 0;
+			transform: translateY(1rem) rotate(-2.5deg);
+		}
 	}
 
 	.statement {
@@ -219,19 +226,13 @@ import Layout from '../../layouts/Layout.astro';
 	}
 
 	@media (max-width: 760px) {
-		.profile-heading,
 		.profile-body {
 			grid-template-columns: 1fr;
 		}
 
-		.profile-heading h1 {
-			border-top: 1px solid var(--color-border);
-			border-left: 0;
-			padding-inline: 0;
-		}
-
-		.identity-card {
-			min-height: 20rem;
+		.profile-note {
+			width: min(100%, 24rem);
+			transform: rotate(-0.5deg);
 		}
 
 		.colophon dl {

@@ -32,20 +32,15 @@ import HeaderLink from './HeaderLink.astro';
 		padding: 1rem 0;
 	}
 
-	nav a {
-		color: inherit;
-		font-size: 0.9rem;
-		letter-spacing: -0.01em;
-		text-decoration: none;
-	}
-
 	.site-title {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.8rem;
 		min-width: 2.75rem;
 		min-height: 2.75rem;
+		color: inherit;
 		line-height: 0;
+		text-decoration: none;
 	}
 
 	.site-title img {
@@ -56,11 +51,11 @@ import HeaderLink from './HeaderLink.astro';
 	}
 
 	.site-title span {
-		color: var(--color-subtle);
+		color: var(--color-muted);
 		font-family: var(--font-atkinson);
-		font-size: 0.65rem;
-		font-weight: 650;
-		letter-spacing: 0.12em;
+		font-size: 0.68rem;
+		font-weight: 400;
+		letter-spacing: 0.08em;
 		line-height: 1;
 		text-transform: uppercase;
 	}

@@ -34,17 +34,18 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		padding: 0.25rem 0;
 		font-family: var(--font-atkinson);
 		font-size: 0.68rem;
-		font-weight: 650;
+		font-weight: 400;
 		letter-spacing: 0.08em;
 		line-height: 1.2;
+		text-decoration: none;
 		text-transform: uppercase;
 		white-space: nowrap;
 		transition: color 220ms ease;
 	}
 
 	.index {
-		color: var(--color-subtle);
-		font-size: 0.58rem;
+		color: inherit;
+		font-size: inherit;
 	}
 
 	a::before {
@@ -69,10 +70,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 
 	a.active {
 		color: var(--color-text);
-	}
-
-	a.active .index {
-		color: var(--color-accent);
+		font-weight: 700;
 	}
 
 	.mobile-label {
@@ -84,7 +82,6 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 			gap: 0;
 			min-height: 2.75rem;
 			padding-inline: 0.3rem;
-			font-size: 0.62rem;
 		}
 
 		.index,
