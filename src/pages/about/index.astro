@@ -20,7 +20,7 @@ import Layout from '../../layouts/Layout.astro';
 			</aside>
 
 			<div class="statement">
-				<p class="lede">
+				<p>
 					I use this space to inspect software, follow systems to their edges, and keep the useful
 					parts of what I learn.
 				</p>
@@ -149,17 +149,12 @@ import Layout from '../../layouts/Layout.astro';
 		align-self: center;
 	}
 
-	.statement .lede {
-		max-width: 31rem;
-		margin-bottom: 1.5rem;
-		color: var(--color-text);
-		font-size: clamp(1.6rem, 3.5vw, 2.35rem);
-		letter-spacing: -0.025em;
-		line-height: 1.25;
+	.statement > p {
+		max-width: 30rem;
 	}
 
-	.statement > p:not(.lede) {
-		max-width: 30rem;
+	.statement > p + p {
+		margin-top: 1.5rem;
 	}
 
 	.colophon {
