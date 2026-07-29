@@ -1,5 +1,6 @@
 ---
 import H1 from '../components/typography/H1.astro';
+import Pane from '../components/Pane.astro';
 import T2 from '../components/typography/T2.astro';
 import Layout from './Layout.astro';
 
@@ -26,7 +27,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		<header class="post-header">
 			{
 				heroImageUrl && (
-					<div class="image-plate">
+					<Pane as="div" class="image-plate" padded={false}>
 						<img
 							class="post-image"
 							src={heroImageUrl}
@@ -36,42 +37,44 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 							loading="eager"
 							decoding="async"
 						/>
-					</div>
+					</Pane>
 				)
 			}
-			<div class="post-heading">
+			<Pane as="div" class="post-heading">
 				<T2 class="post-kicker">Field note / {sequence}</T2>
 				<H1 id="post-title">{title}</H1>
 				<T2 as="time" class="post-date" datetime={pubDate.toISOString()}>{formattedPubDate}</T2>
-			</div>
+			</Pane>
 		</header>
-		<div class="prose">
+		<Pane as="div" class="prose">
 			<slot />
-		</div>
-		<footer class="post-footer">
+		</Pane>
+		<Pane as="footer" class="post-footer">
 			<T2>End / note {sequence}</T2>
 			<div>
-				<T2 as="a" href="/blog">Back to manifest</T2>
-				<T2 as="a" href="/rss.xml">RSS feed</T2>
+				<T2 as="a" class="box-link brush-hover" href="/blog">Back to manifest</T2>
+				<T2 as="a" class="box-link brush-hover" href="/rss.xml">RSS feed</T2>
 			</div>
-		</footer>
+		</Pane>
 	</article>
 </Layout>
 
 <style>
 	.post {
 		--post-width: 880px;
+		display: grid;
+		gap: var(--pane-gap);
 	}
 
 	.post-header {
-		padding-bottom: clamp(2.5rem, 5vw, 4rem);
+		display: grid;
+		gap: var(--pane-gap);
 	}
 
 	.image-plate {
 		position: relative;
 		overflow: hidden;
-		margin-bottom: clamp(2rem, 4vw, 3rem);
-		border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
+		border-color: color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
 		background: var(--color-surface);
 	}
 
@@ -85,8 +88,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	}
 
 	.post-heading {
-		max-width: var(--post-width);
-		margin: 0 auto;
 		text-align: center;
 	}
 
@@ -138,11 +139,9 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	}
 
 	.prose {
-		max-width: var(--post-width);
-		margin: 0 auto;
-		padding-top: clamp(1.75rem, 4vw, 2.5rem);
-		border-top: 1px solid var(--color-border);
-		font-family: var(--font-atkinson);
+		width: min(100%, var(--post-width));
+		margin-inline: auto;
+		font-family: var(--font-editor);
 		line-height: 1.65;
 	}
 
@@ -154,7 +153,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	.prose :global(h6) {
 		margin: 2.5rem 0 1rem;
 		color: var(--color-text);
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		font-weight: 620;
 		letter-spacing: -0.04em;
 	}
@@ -169,7 +168,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		margin-bottom: 0.65rem;
 		color: var(--color-accent);
 		content: "Section /";
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		font-weight: 650;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
@@ -200,7 +199,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 
 	.prose :global(blockquote) {
 		margin: 2rem 0;
-		border-left: 2px solid var(--color-accent);
+		border: 1px solid var(--color-accent);
 		color: var(--color-text);
 		font-style: italic;
 		padding: 0.25rem 0 0.25rem 1.5rem;
@@ -224,19 +223,17 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 
 	.prose :global(code) {
 		border: 1px solid var(--color-border);
-		border-radius: 0.35rem;
 		background: var(--color-surface);
 		color: var(--color-text);
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		padding: 0.1rem 0.3rem;
 	}
 
 	.prose :global(pre) {
 		overflow-x: auto;
 		border: 1px solid var(--color-border);
-		border-radius: 0.75rem;
 		background: var(--color-surface);
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		line-height: 1.65;
 		padding: 1.25rem;
 	}
@@ -253,7 +250,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		width: 100%;
 		margin: 2rem 0;
 		border-collapse: collapse;
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 	}
 
 	.prose :global(th),
@@ -272,12 +269,10 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		align-items: center;
 		justify-content: space-between;
 		gap: 2rem;
-		max-width: var(--post-width);
-		margin: clamp(3rem, 6vw, 4.5rem) auto 0;
-		padding-top: 1.5rem;
-		border-top: 1px solid var(--color-border);
+		width: min(100%, var(--post-width));
+		margin-inline: auto;
 		color: var(--color-subtle);
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		font-weight: 650;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;

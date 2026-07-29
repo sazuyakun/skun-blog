@@ -1,26 +1,26 @@
 ---
-import { SITE_TITLE } from '../../consts';
 import T2 from '../typography/T2.astro';
 import HeaderLink from './HeaderLink.astro';
+
+const isHome = Astro.url.pathname === '/';
 ---
 
 <header>
 	<nav>
-		<a class="site-title" href="/" aria-label={`${SITE_TITLE} home`}>
+		<a class:list={['site-title', 'brush-hover', { active: isHome }]} href="/">
 			<img src="/images/main_logo.png" alt="" width="48" height="48" />
 			<T2>skun / field log</T2>
 		</a>
 		<div class="nav-links">
-			<HeaderLink href="/" index="01" label="Home" />
-			<HeaderLink href="/blog" index="02" label="Writing" mobileLabel="Write" />
-			<HeaderLink href="/about" index="03" label="About" />
+			<HeaderLink href="/blog" label="Blog" />
+			<HeaderLink href="/about" label="About" />
 		</div>
 	</nav>
 </header>
 <style>
 	header {
-		border-bottom: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
-		background: color-mix(in srgb, var(--color-background) 92%, transparent);
+		border: 1px solid var(--color-border);
+		background: var(--color-background);
 	}
 
 	nav {
@@ -28,9 +28,7 @@ import HeaderLink from './HeaderLink.astro';
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		width: min(var(--shell-width), calc(100% - 2rem));
-		margin: auto;
-		padding: 1rem 0;
+		padding: 0.5rem;
 	}
 
 	.site-title {
@@ -38,9 +36,11 @@ import HeaderLink from './HeaderLink.astro';
 		align-items: center;
 		gap: 0.8rem;
 		min-width: 2.75rem;
-		min-height: 2.75rem;
+		min-height: 3rem;
+		border: 1px solid var(--color-border);
 		color: inherit;
 		line-height: 0;
+		padding: 0.35rem 0.8rem;
 		text-decoration: none;
 	}
 
@@ -51,29 +51,43 @@ import HeaderLink from './HeaderLink.astro';
 		filter: brightness(0) invert(1);
 	}
 
+	.site-title:hover img,
+	.site-title:focus-visible img {
+		filter: brightness(0);
+	}
+
 	.site-title span {
 		color: var(--color-muted);
-		font-family: var(--font-atkinson);
+		font-family: var(--font-editor);
 		font-weight: 400;
 		letter-spacing: 0.08em;
 		line-height: 1;
 		text-transform: uppercase;
 	}
 
+	.site-title.active {
+		border-color: var(--color-accent);
+	}
+
 	.nav-links {
 		display: flex;
 		flex: 0 0 auto;
-		gap: clamp(0.6rem, 3vw, 2rem);
+		gap: 0.5rem;
 		color: var(--color-muted);
 	}
 
 	@media (max-width: 640px) {
-		.site-title span {
-			display: none;
+		nav {
+			gap: 0.35rem;
 		}
 
-		.nav-links {
-			gap: clamp(0.2rem, 2vw, 0.75rem);
+		.site-title {
+			gap: 0.45rem;
+			padding-inline: 0.55rem;
+		}
+
+		.site-title img {
+			width: 1.75rem;
 		}
 	}
 </style>

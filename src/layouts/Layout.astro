@@ -25,10 +25,12 @@ if (pathname.startsWith('/blog')) {
 		<BaseHead title={title} description={description} />
 	</head>
 	<body class="type-t1">
-		<Header />
-		<main>
-			<slot />
-		</main>
-		<Footer />
+		<div class="site-frame">
+			<Header />
+			<main>
+				<slot />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

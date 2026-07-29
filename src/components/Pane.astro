@@ -1,0 +1,12 @@
+---
+interface Props {
+	as?: string;
+	class?: string;
+	padded?: boolean;
+	[key: string]: unknown;
+}
+
+const { as: Tag = 'section', class: className, padded = true, ...props } = Astro.props;
+---
+
+<Tag class:list={['pane', { 'pane--flush': !padded }, className]} {...props}><slot /></Tag>
