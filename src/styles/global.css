@@ -161,6 +161,11 @@ a:focus-visible {
 	color: var(--color-accent);
 }
 
+.text-link:hover::before,
+.text-link:focus-visible::before {
+	color: inherit;
+}
+
 .plain-link {
 	color: var(--color-muted);
 	font-family: var(--font-editor);
