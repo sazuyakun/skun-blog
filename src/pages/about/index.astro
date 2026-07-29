@@ -36,17 +36,27 @@ import Layout from '../../layouts/Layout.astro';
 		</div>
 	</section>
 
-	<section class="colophon" aria-labelledby="colophon-title">
+	<section class="socials" aria-labelledby="socials-title">
 		<header>
-			<p class="eyebrow">Site record / 01</p>
-			<h2 id="colophon-title">How this place works</h2>
+			<h2 id="socials-title">Socials</h2>
 		</header>
-		<dl>
-			<div><dt>Built with</dt><dd>Astro and plain CSS</dd></div>
-			<div><dt>Output</dt><dd>Static by default</dd></div>
-			<div><dt>Principle</dt><dd>Write deliberately, decorate usefully</dd></div>
-			<div><dt>Feed</dt><dd><a href="/rss.xml">RSS / XML</a></dd></div>
-		</dl>
+		<nav class="social-links" aria-label="Social profiles">
+			<a href="https://github.com/sazuyakun">
+				<strong>GitHub</strong>
+				<span>github.com/sazuyakun</span>
+				<span class="arrow" aria-hidden="true">---&gt;</span>
+			</a>
+			<a href="https://www.linkedin.com/in/soham-samal/">
+				<strong>LinkedIn</strong>
+				<span>linkedin.com/in/soham-samal</span>
+				<span class="arrow" aria-hidden="true">---&gt;</span>
+			</a>
+			<a href="https://x.com/sazuya_kun">
+				<strong>X</strong>
+				<span>x.com/sazuya_kun</span>
+				<span class="arrow" aria-hidden="true">---&gt;</span>
+			</a>
+		</nav>
 	</section>
 </Layout>
 
@@ -157,67 +167,77 @@ import Layout from '../../layouts/Layout.astro';
 		margin-top: 1.5rem;
 	}
 
-	.colophon {
+	.socials {
 		padding-top: clamp(2rem, 5vw, 3.5rem);
 		border-top: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
 	}
 
-	.colophon header {
-		display: flex;
-		align-items: end;
-		justify-content: space-between;
-		gap: 2rem;
+	.socials header {
 		margin-bottom: 2.5rem;
 	}
 
-	.colophon .eyebrow {
-		margin: 0;
-	}
-
-	.colophon h2 {
+	.socials h2 {
 		max-width: none;
 		margin: 0;
 		font-size: clamp(2rem, 5vw, 3.5rem);
 		font-weight: 620;
 		letter-spacing: -0.05em;
-		text-align: right;
 	}
 
-	.colophon dl {
+	.social-links {
 		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		margin: 0;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		border-top: 1px solid var(--color-border);
 		border-bottom: 1px solid var(--color-border);
 	}
 
-	.colophon dl div {
-		min-height: 9rem;
+	.social-links a {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.5rem 1rem;
+		min-width: 0;
+		min-height: 8rem;
 		padding: 1.25rem;
 		border-right: 1px solid var(--color-border);
+		text-decoration: none;
+		transition: background-color 160ms ease;
 	}
 
-	.colophon dl div:first-child {
+	.social-links a:first-child {
 		padding-left: 0;
 	}
 
-	.colophon dl div:last-child {
+	.social-links a:last-child {
 		border-right: 0;
 	}
 
-	.colophon dt {
-		margin-bottom: 2rem;
-		color: var(--color-subtle);
-		font-size: 0.65rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+	.social-links a:hover,
+	.social-links a:focus-visible {
+		background: color-mix(in srgb, var(--color-accent) 6%, transparent);
 	}
 
-	.colophon dd {
-		margin: 0;
+	.social-links strong {
+		color: var(--color-text);
+		font-size: 1.2rem;
+	}
+
+	.social-links a > span:not(.arrow) {
+		grid-column: 1 / -1;
+		overflow-wrap: anywhere;
 		color: var(--color-muted);
-		font-size: 1.08rem;
-		line-height: 1.35;
+		font-size: 0.82rem;
+	}
+
+	.social-links .arrow {
+		color: var(--color-accent);
+		font-size: 0.75rem;
+		font-weight: 700;
+		transition: transform 160ms ease;
+	}
+
+	.social-links a:hover .arrow,
+	.social-links a:focus-visible .arrow {
+		transform: translateX(0.2rem);
 	}
 
 	@media (max-width: 760px) {
@@ -230,55 +250,21 @@ import Layout from '../../layouts/Layout.astro';
 			transform: rotate(-0.5deg);
 		}
 
-		.colophon dl {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.colophon dl div {
-			border-bottom: 1px solid var(--color-border);
-		}
-
-		.colophon dl div:nth-child(2) {
-			border-right: 0;
-		}
-
-		.colophon dl div:nth-last-child(-n + 2) {
-			border-bottom: 0;
-		}
-
-		.colophon dl div:first-child {
-			padding-left: 1.25rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.colophon header {
-			align-items: start;
-			flex-direction: column;
-		}
-
-		.colophon h2 {
-			text-align: left;
-		}
-
-		.colophon dl {
+		.social-links {
 			grid-template-columns: 1fr;
 		}
 
-		.colophon dl div,
-		.colophon dl div:nth-child(2),
-		.colophon dl div:nth-last-child(-n + 2) {
+		.social-links a,
+		.social-links a:first-child {
 			min-height: auto;
+			padding: 1.25rem;
 			border-right: 0;
 			border-bottom: 1px solid var(--color-border);
 		}
 
-		.colophon dl div:last-child {
+		.social-links a:last-child {
 			border-bottom: 0;
 		}
-
-		.colophon dt {
-			margin-bottom: 0.75rem;
-		}
 	}
+
 </style>

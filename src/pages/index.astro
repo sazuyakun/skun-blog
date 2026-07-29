@@ -21,29 +21,14 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 			</p>
 			<div class="actions" aria-label="Primary links">
 				<a class="text-link" href="/blog">Read the latest</a>
-				<a class="plain-link" href="/about">Open the colophon</a>
+				<a class="plain-link" href="/about">About me</a>
 			</div>
 		</div>
-
-		<aside class="current-trace" aria-labelledby="trace-title">
-			<div class="trace-heading">
-				<p class="eyebrow" id="trace-title">Current trace</p>
-				<span>Live / 03</span>
-			</div>
-			<dl>
-				<div><dt>Building</dt><dd>Small, durable systems</dd></div>
-				<div><dt>Learning</dt><dd>How pieces connect</dd></div>
-				<div><dt>Writing</dt><dd>Field notes from the work</dd></div>
-			</dl>
-		</aside>
 	</section>
 
 	<section class="transmissions" aria-labelledby="latest-title">
 		<header>
-			<div>
-				<p class="eyebrow">Latest posts</p>
-				<h2 id="latest-title">Recent writing</h2>
-			</div>
+			<h2 class="eyebrow" id="latest-title">Latest posts</h2>
 			<a class="plain-link" href="/blog">Full manifest</a>
 		</header>
 		{
@@ -58,10 +43,6 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 
 <style>
 	.home-hero {
-		display: grid;
-		grid-template-columns: minmax(0, 1.65fr) minmax(17rem, 0.75fr);
-		align-items: end;
-		gap: clamp(3rem, 8vw, 7rem);
 		padding-bottom: clamp(5rem, 10vw, 8rem);
 	}
 
@@ -71,66 +52,6 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 
 	.hero-copy .lede {
 		max-width: 34rem;
-	}
-
-	.current-trace {
-		position: relative;
-		border-top: 1px solid color-mix(in srgb, var(--color-accent) 62%, var(--color-border));
-		border-bottom: 1px solid var(--color-border);
-		padding: 1.25rem 0;
-	}
-
-	.current-trace::after {
-		position: absolute;
-		top: -0.25rem;
-		right: 0;
-		width: 0.5rem;
-		height: 0.5rem;
-		border: 1px solid var(--color-accent);
-		content: "";
-	}
-
-	.trace-heading {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		color: var(--color-subtle);
-		font-family: var(--font-atkinson);
-		font-size: 0.62rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-
-	.trace-heading .eyebrow {
-		margin: 0;
-	}
-
-	dl {
-		margin: 1.25rem 0 0;
-	}
-
-	dl div {
-		display: grid;
-		grid-template-columns: 5rem 1fr;
-		gap: 0.75rem;
-		padding: 0.7rem 0;
-		border-top: 1px solid var(--color-border);
-	}
-
-	dt {
-		color: var(--color-subtle);
-		font-family: var(--font-atkinson);
-		font-size: 0.62rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
-
-	dd {
-		margin: 0;
-		color: var(--color-muted);
-		font-family: var(--font-atkinson);
-		font-size: 1rem;
-		line-height: 1.3;
 	}
 
 	.transmissions {
@@ -146,26 +67,8 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 		margin-bottom: 2rem;
 	}
 
-	.transmissions .eyebrow {
-		margin-bottom: 0.5rem;
-	}
-
-	h2 {
+	.transmissions h2.eyebrow {
 		margin: 0;
-		font-size: clamp(2rem, 5vw, 3.5rem);
-		font-weight: 620;
-		letter-spacing: -0.05em;
-	}
-
-	@media (max-width: 760px) {
-		.home-hero {
-			grid-template-columns: 1fr;
-			gap: 4rem;
-		}
-
-		.current-trace {
-			margin-left: 1.25rem;
-		}
 	}
 
 	@media (max-width: 480px) {
