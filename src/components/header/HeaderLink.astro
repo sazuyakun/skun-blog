@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import T2 from '../typography/T2.astro';
 
 type Props = HTMLAttributes<'a'> & {
 	index: string;
@@ -13,7 +14,8 @@ const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 ---
 
-<a
+<T2
+	as="a"
 	href={href}
 	aria-current={isActive ? 'page' : undefined}
 	class:list={[className, { active: isActive }]}
@@ -23,7 +25,7 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 	<span class="label">
 		<span class="desktop-label">{label}</span><span class="mobile-label">{mobileLabel}</span>
 	</span>
-</a>
+</T2>
 <style>
 	a {
 		position: relative;
@@ -33,7 +35,6 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 		min-height: 2.75rem;
 		padding: 0.25rem 0;
 		font-family: var(--font-atkinson);
-		font-size: 0.68rem;
 		font-weight: 400;
 		letter-spacing: 0.08em;
 		line-height: 1.2;
@@ -45,7 +46,6 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 
 	.index {
 		color: inherit;
-		font-size: inherit;
 	}
 
 	a::before {

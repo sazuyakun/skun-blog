@@ -1,4 +1,7 @@
 ---
+import T1 from './typography/T1.astro';
+import T2 from './typography/T2.astro';
+
 type Props = {
 	message: string;
 	href: string;
@@ -9,8 +12,8 @@ const { message, href, label } = Astro.props;
 ---
 
 <div class="empty-state">
-	<p>{message}</p>
-	<a class="text-link" href={href}>{label}</a>
+	<T1>{message}</T1>
+	<T2 as="a" class="text-link" href={href}>{label}</T2>
 </div>
 
 <style>

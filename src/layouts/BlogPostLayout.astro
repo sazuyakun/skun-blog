@@ -1,4 +1,6 @@
 ---
+import H1 from '../components/typography/H1.astro';
+import T2 from '../components/typography/T2.astro';
 import Layout from './Layout.astro';
 
 interface Props {
@@ -37,23 +39,20 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 					</div>
 				)
 			}
-			<div class="post-heading signal-rail">
-				<div>
-					<p class="eyebrow">Field note / {sequence}</p>
-					<h1 id="post-title">{title}</h1>
-					<p class="post-description">{description}</p>
-				</div>
-				<time class="post-date" datetime={pubDate.toISOString()}>{formattedPubDate}</time>
+			<div class="post-heading">
+				<T2 class="post-kicker">Field note / {sequence}</T2>
+				<H1 id="post-title">{title}</H1>
+				<T2 as="time" class="post-date" datetime={pubDate.toISOString()}>{formattedPubDate}</T2>
 			</div>
 		</header>
 		<div class="prose">
 			<slot />
 		</div>
 		<footer class="post-footer">
-			<span>End / note {sequence}</span>
+			<T2>End / note {sequence}</T2>
 			<div>
-				<a href="/blog">Back to manifest</a>
-				<a href="/rss.xml">RSS feed</a>
+				<T2 as="a" href="/blog">Back to manifest</T2>
+				<T2 as="a" href="/rss.xml">RSS feed</T2>
 			</div>
 		</footer>
 	</article>
@@ -61,7 +60,7 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 
 <style>
 	.post {
-		--post-width: 780px;
+		--post-width: 880px;
 	}
 
 	.post-header {
@@ -86,34 +85,56 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	}
 
 	.post-heading {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) 13rem;
-		align-items: end;
-		gap: clamp(2rem, 7vw, 6rem);
+		max-width: var(--post-width);
+		margin: 0 auto;
+		text-align: center;
 	}
 
-	.post-header h1 {
-		max-width: 10ch;
+	.post-header :global(.type-h1) {
 		margin-bottom: 1rem;
-		font-size: clamp(2.5rem, 5vw, 4rem);
 	}
 
-	.post-description {
-		max-width: 36rem;
-		font-family: var(--font-atkinson);
-		font-size: clamp(1.2rem, 2.8vw, 1.55rem);
-		line-height: 1.45;
+	.post-kicker {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+		margin-bottom: 1.25rem;
+		color: var(--color-accent);
+		font-weight: 700;
+		letter-spacing: 0.13em;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.post-kicker::before,
+	.post-kicker::after {
+		flex: 1;
+		height: 1px;
+		background: color-mix(in srgb, var(--color-accent) 58%, var(--color-border));
+		content: "";
+		animation: post-line-in 320ms ease-out both;
+	}
+
+	.post-kicker::before {
+		transform-origin: right;
+	}
+
+	.post-kicker::after {
+		transform-origin: left;
+	}
+
+	@keyframes post-line-in {
+		from {
+			transform: scaleX(0);
+		}
 	}
 
 	.post-date {
 		display: block;
-		padding: 0.8rem 0;
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		margin-top: 1rem;
 		color: var(--color-muted);
-		font-size: 0.75rem;
 		letter-spacing: 0.04em;
-		text-align: right;
 	}
 
 	.prose {
@@ -122,36 +143,36 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		padding-top: clamp(1.75rem, 4vw, 2.5rem);
 		border-top: 1px solid var(--color-border);
 		font-family: var(--font-atkinson);
-		font-size: clamp(1.1rem, 2vw, 1.22rem);
 		line-height: 1.65;
 	}
 
-	.prose :global(h2) {
+	.prose :global(h1),
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4),
+	.prose :global(h5),
+	.prose :global(h6) {
 		margin: 2.5rem 0 1rem;
 		color: var(--color-text);
 		font-family: var(--font-atkinson);
-		font-size: clamp(1.5rem, 4vw, 2.25rem);
 		font-weight: 620;
 		letter-spacing: -0.04em;
 	}
 
-	.prose :global(h2::before) {
+	.prose :global(h1::before),
+	.prose :global(h2::before),
+	.prose :global(h3::before),
+	.prose :global(h4::before),
+	.prose :global(h5::before),
+	.prose :global(h6::before) {
 		display: block;
 		margin-bottom: 0.65rem;
 		color: var(--color-accent);
 		content: "Section /";
 		font-family: var(--font-atkinson);
-		font-size: 0.62rem;
 		font-weight: 650;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-	}
-
-	.prose :global(h3) {
-		margin: 2rem 0 0.75rem;
-		color: var(--color-text);
-		font-family: var(--font-atkinson);
-		font-size: 1.35rem;
 	}
 
 	.prose :global(p),
@@ -181,7 +202,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		margin: 2rem 0;
 		border-left: 2px solid var(--color-accent);
 		color: var(--color-text);
-		font-size: 1.2em;
 		font-style: italic;
 		padding: 0.25rem 0 0.25rem 1.5rem;
 	}
@@ -208,7 +228,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		background: var(--color-surface);
 		color: var(--color-text);
 		font-family: var(--font-atkinson);
-		font-size: 0.9em;
 		padding: 0.1rem 0.3rem;
 	}
 
@@ -218,7 +237,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		border-radius: 0.75rem;
 		background: var(--color-surface);
 		font-family: var(--font-atkinson);
-		font-size: 0.88rem;
 		line-height: 1.65;
 		padding: 1.25rem;
 	}
@@ -236,7 +254,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		margin: 2rem 0;
 		border-collapse: collapse;
 		font-family: var(--font-atkinson);
-		font-size: 0.9rem;
 	}
 
 	.prose :global(th),
@@ -261,7 +278,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		border-top: 1px solid var(--color-border);
 		color: var(--color-subtle);
 		font-family: var(--font-atkinson);
-		font-size: 0.65rem;
 		font-weight: 650;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -275,17 +291,6 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	.post-footer a {
 		color: var(--color-muted);
 		text-decoration: none;
-	}
-
-	@media (max-width: 760px) {
-		.post-heading {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
-		}
-
-		.post-date {
-			text-align: left;
-		}
 	}
 
 	@media (max-width: 480px) {

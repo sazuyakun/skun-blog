@@ -1,5 +1,6 @@
 ---
 import SocialIcon from './SocialIcon.astro';
+import T2 from './typography/T2.astro';
 import { SOCIALS } from '../consts';
 
 const today = new Date();
@@ -7,12 +8,12 @@ const today = new Date();
 
 <footer>
 	<div>
-		<span class="end-mark">End of log</span>
+		<T2 class="end-mark">End of log</T2>
 		<nav aria-label="Footer links">
-			<a href="/rss.xml">RSS</a>
+			<T2 as="a" href="/rss.xml">RSS</T2>
 		</nav>
 		<div class="footer-meta">
-			<span>&copy; {today.getFullYear()} Skun Blog</span>
+			<T2>&copy; {today.getFullYear()} Skun Blog</T2>
 			<nav class="social-icons" aria-label="Social profiles">
 				{
 					SOCIALS.map((social) => (
@@ -35,7 +36,6 @@ const today = new Date();
 		border-top: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
 		color: var(--color-muted);
 		font-family: var(--font-atkinson);
-		font-size: 0.65rem;
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		padding: 2rem var(--gutter);
@@ -100,7 +100,6 @@ const today = new Date();
 		height: 1rem;
 		place-items: center;
 		color: var(--color-muted);
-		font-size: 1rem;
 		line-height: 1;
 		transition: color 160ms ease;
 	}

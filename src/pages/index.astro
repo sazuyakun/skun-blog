@@ -2,6 +2,9 @@
 import { getCollection } from 'astro:content';
 import BlogPostList from '../components/blog/BlogPostList.astro';
 import EmptyState from '../components/EmptyState.astro';
+import H1 from '../components/typography/H1.astro';
+import T1 from '../components/typography/T1.astro';
+import T2 from '../components/typography/T2.astro';
 import Layout from '../layouts/Layout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
@@ -13,23 +16,23 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<section class="home-hero" aria-labelledby="home-title">
 		<div class="hero-copy signal-rail">
-			<p class="eyebrow">Personal dispatch / systems and software</p>
-			<h1 id="home-title">Notes from the edge of code.</h1>
-			<p class="lede">
+			<T2 as="p" class="eyebrow">Personal dispatch / systems and software</T2>
+			<H1 id="home-title">Notes from the edge of code.</H1>
+			<T1 class="lede">
 				A working log of software, systems, experiments, and the ideas that survive building
 				things.
-			</p>
+			</T1>
 			<div class="actions" aria-label="Primary links">
-				<a class="text-link" href="/blog">Read the latest</a>
-				<a class="plain-link" href="/about">About me</a>
+				<T2 as="a" class="text-link" href="/blog">Read the latest</T2>
+				<T2 as="a" class="plain-link" href="/about">About me</T2>
 			</div>
 		</div>
 	</section>
 
 	<section class="transmissions" aria-labelledby="latest-title">
 		<header>
-			<h2 class="eyebrow" id="latest-title">Latest posts</h2>
-			<a class="plain-link" href="/blog">Full manifest</a>
+			<T1 as="h2" class="eyebrow" id="latest-title">Latest posts</T1>
+			<T1 as="a" class="plain-link" href="/blog">Full manifest</T1>
 		</header>
 		{
 			latestPosts.length > 0 ? (

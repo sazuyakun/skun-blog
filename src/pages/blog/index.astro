@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BlogPostList from '../../components/blog/BlogPostList.astro';
 import EmptyState from '../../components/EmptyState.astro';
+import T1 from '../../components/typography/T1.astro';
 import Layout from '../../layouts/Layout.astro';
 
 const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort(
@@ -12,7 +13,7 @@ const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).s
 
 <Layout title="Blog" description="Blog posts from Skun Blog">
 	<section class="archive" aria-labelledby="archive-title">
-		<p class="eyebrow" id="archive-title">All posts</p>
+		<T1 as="h1" class="eyebrow" id="archive-title">All posts</T1>
 		{
 			posts.length > 0 ? (
 				<BlogPostList posts={posts} />

@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE } from '../../consts';
+import T2 from '../typography/T2.astro';
 import HeaderLink from './HeaderLink.astro';
 ---
 
@@ -7,7 +8,7 @@ import HeaderLink from './HeaderLink.astro';
 	<nav>
 		<a class="site-title" href="/" aria-label={`${SITE_TITLE} home`}>
 			<img src="/images/main_logo.png" alt="" width="48" height="48" />
-			<span>skun / field log</span>
+			<T2>skun / field log</T2>
 		</a>
 		<div class="nav-links">
 			<HeaderLink href="/" index="01" label="Home" />
@@ -53,7 +54,6 @@ import HeaderLink from './HeaderLink.astro';
 	.site-title span {
 		color: var(--color-muted);
 		font-family: var(--font-atkinson);
-		font-size: 0.68rem;
 		font-weight: 400;
 		letter-spacing: 0.08em;
 		line-height: 1;

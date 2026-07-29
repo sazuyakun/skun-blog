@@ -13,6 +13,10 @@
 	--color-accent: var(--accent-home);
 	--content-width: 680px;
 	--shell-width: 1080px;
+	--type-size-h1: clamp(2.5rem, 5vw, 4rem);
+	--type-size-h2: clamp(1.2rem, 3vw, 1.65rem);
+	--type-size-t1: 1.0625rem;
+	--type-size-t2: 0.75rem;
 	--gutter: clamp(1.1rem, 4vw, 2rem);
 }
 
@@ -46,20 +50,27 @@ body {
 		linear-gradient(180deg, #0b0c09 0%, var(--color-background) 31rem);
 	color: var(--color-text);
 	font-family: var(--font-atkinson);
-	font-size: 17px;
 	line-height: 1.6;
 	text-rendering: optimizeLegibility;
 }
 
-body::before {
-	position: fixed;
-	z-index: -1;
-	inset: 0;
-	background-image: linear-gradient(color-mix(in srgb, var(--color-border) 32%, transparent) 1px, transparent 1px);
-	background-size: 100% 4rem;
-	content: "";
-	mask-image: linear-gradient(to bottom, transparent 4rem, black 16rem, transparent 80%);
-	pointer-events: none;
+.type-h1 {
+	font-size: var(--type-size-h1);
+}
+
+.type-h2,
+.prose :is(h1, h2, h3, h4, h5, h6) {
+	font-size: var(--type-size-h2);
+}
+
+.type-t1 {
+	font-size: var(--type-size-t1);
+}
+
+.type-t2,
+.prose :is(pre, table),
+.prose :is(h1, h2, h3, h4, h5, h6)::before {
+	font-size: var(--type-size-t2);
 }
 
 main {
@@ -79,7 +90,6 @@ h6 {
 }
 
 h1 {
-	font-size: clamp(3.25rem, 9vw, 7rem);
 	font-weight: 650;
 	letter-spacing: -0.065em;
 	margin: 0 0 1rem;
@@ -114,7 +124,6 @@ a:focus-visible {
 	gap: 0.45rem;
 	color: var(--color-text);
 	font-family: var(--font-atkinson);
-	font-size: 0.78rem;
 	font-weight: 700;
 	letter-spacing: 0.08em;
 	text-decoration: none;
@@ -135,7 +144,6 @@ a:focus-visible {
 .plain-link {
 	color: var(--color-muted);
 	font-family: var(--font-atkinson);
-	font-size: 0.78rem;
 	font-weight: 650;
 	letter-spacing: 0.06em;
 	text-decoration: none;
@@ -150,7 +158,6 @@ a:focus-visible {
 	margin-bottom: 1.25rem;
 	color: var(--color-accent);
 	font-family: var(--font-atkinson);
-	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.13em;
 	text-transform: uppercase;
@@ -158,7 +165,6 @@ a:focus-visible {
 
 .lede {
 	max-width: 42rem;
-	font-size: clamp(1.15rem, 3vw, 1.55rem);
 	line-height: 1.45;
 }
 
@@ -204,16 +210,11 @@ a:focus-visible {
 }
 
 @media (max-width: 640px) {
-	body {
-		font-size: 16px;
-	}
-
 	main {
 		padding-top: 3rem;
 	}
 
 	h1 {
-		font-size: clamp(3rem, 15vw, 4.25rem);
 		letter-spacing: -0.055em;
 	}
 

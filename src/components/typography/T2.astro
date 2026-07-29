@@ -1,0 +1,11 @@
+---
+interface Props {
+	as?: string;
+	class?: string;
+	[key: string]: unknown;
+}
+
+const { as: Tag = 'span', class: className, ...props } = Astro.props;
+---
+
+<Tag class:list={['type-t2', className]} {...props}><slot /></Tag>
