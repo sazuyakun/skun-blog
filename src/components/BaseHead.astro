@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
@@ -14,12 +15,7 @@ const { title, description } = Astro.props;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/images/main_logo.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Newsreader:opsz,wght@6..72,350..650&display=swap"
-	rel="stylesheet"
-/>
+<Font cssVariable="--font-atkinson" preload />
 <link
 	rel="alternate"
 	type="application/rss+xml"

@@ -8,6 +8,6 @@
 	<path d="M1010 292 910 425l100 133M1175 292l100 133-100 133" fill="none" stroke="#ff9f1c" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" />
 	<path d="M1118 250 1064 600" stroke="#f2f0ea" stroke-width="18" stroke-linecap="round" opacity="0.45" />
 	<rect x="80" y="80" width="1440" height="690" rx="42" fill="none" stroke="#ff9f1c" stroke-width="4" opacity="0.42" />
-	<text x="118" y="150" fill="#ff9f1c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="44" font-weight="700">/*</text>
-	<text x="1415" y="720" fill="#ff9f1c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="44" font-weight="700">*/</text>
+	<path d="m120 154 18-56m22 17v28m-12-21 24 14m0-14-24 14" fill="none" stroke="#ff9f1c" stroke-width="6" stroke-linecap="round" />
+	<path d="m1418 685 24 14m0-14-24 14m12-21v28m31-28-18 56" fill="none" stroke="#ff9f1c" stroke-width="6" stroke-linecap="round" />
 </svg>

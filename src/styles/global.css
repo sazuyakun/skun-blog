@@ -13,9 +13,6 @@
 	--color-accent: var(--accent-home);
 	--content-width: 680px;
 	--shell-width: 1080px;
-	--font-sans: "Google Sans Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	--font-reading: "Newsreader", Georgia, serif;
-	--font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 	--gutter: clamp(1.1rem, 4vw, 2rem);
 }
 
@@ -48,7 +45,7 @@ body {
 		radial-gradient(circle at 12% 8rem, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 27rem),
 		linear-gradient(180deg, #0b0c09 0%, var(--color-background) 31rem);
 	color: var(--color-text);
-	font-family: var(--font-sans);
+	font-family: var(--font-atkinson);
 	font-size: 17px;
 	line-height: 1.6;
 	text-rendering: optimizeLegibility;
@@ -116,7 +113,7 @@ a:focus-visible {
 	align-items: center;
 	gap: 0.45rem;
 	color: var(--color-text);
-	font-family: var(--font-mono);
+	font-family: var(--font-atkinson);
 	font-size: 0.78rem;
 	font-weight: 700;
 	letter-spacing: 0.08em;
@@ -137,7 +134,7 @@ a:focus-visible {
 
 .plain-link {
 	color: var(--color-muted);
-	font-family: var(--font-mono);
+	font-family: var(--font-atkinson);
 	font-size: 0.78rem;
 	font-weight: 650;
 	letter-spacing: 0.06em;
@@ -152,7 +149,7 @@ a:focus-visible {
 .eyebrow {
 	margin-bottom: 1.25rem;
 	color: var(--color-accent);
-	font-family: var(--font-mono);
+	font-family: var(--font-atkinson);
 	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.13em;
@@ -170,27 +167,6 @@ a:focus-visible {
 	flex-wrap: wrap;
 	gap: 1rem 1.25rem;
 	margin-top: 2rem;
-}
-
-.record-line {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 1rem;
-	margin: 0 0 clamp(2.5rem, 7vw, 5.5rem);
-	color: var(--color-subtle);
-	font-family: var(--font-mono);
-	font-size: 0.68rem;
-	font-weight: 650;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-}
-
-.record-line::after {
-	width: min(18vw, 9rem);
-	height: 1px;
-	background: color-mix(in srgb, var(--color-accent) 58%, var(--color-border));
-	content: "";
 }
 
 .signal-rail {
@@ -239,10 +215,6 @@ a:focus-visible {
 	h1 {
 		font-size: clamp(3rem, 15vw, 4.25rem);
 		letter-spacing: -0.055em;
-	}
-
-	.record-line {
-		margin-bottom: 3rem;
 	}
 
 	.signal-rail {
