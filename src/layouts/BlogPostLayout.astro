@@ -30,7 +30,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 			{
 				heroImageUrl && (
 					<div class="image-plate">
-						<span class="plate-label">Image plate / {sequence}</span>
 						<img
 							class="post-image"
 							src={heroImageUrl}
@@ -94,22 +93,6 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('en', {
 		margin-bottom: clamp(3rem, 7vw, 5rem);
 		border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
 		background: var(--color-surface);
-	}
-
-	.plate-label {
-		position: absolute;
-		z-index: 1;
-		top: 1rem;
-		left: 1rem;
-		border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
-		background: color-mix(in srgb, var(--color-background) 86%, transparent);
-		color: var(--color-accent);
-		font-family: var(--font-atkinson);
-		font-size: 0.6rem;
-		font-weight: 650;
-		letter-spacing: 0.1em;
-		padding: 0.4rem 0.55rem;
-		text-transform: uppercase;
 	}
 
 	.post-image {
