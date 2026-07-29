@@ -23,7 +23,7 @@ const formatDate = (date: Date) =>
 	{
 		posts.map((post) => (
 			<li>
-				<a class="brush-hover" href={`/blog/${post.id}/`}>
+				<a class="brush-hover brush-hover--paint" href={`/blog/${post.id}/`}>
 					<T2 class="sequence" aria-hidden="true">{String(post.data.order).padStart(3, '0')}</T2>
 					<span class="post-copy">
 						<H2 as="strong">{post.data.title}</H2>
@@ -53,8 +53,24 @@ const formatDate = (date: Date) =>
 		align-items: center;
 		gap: clamp(1rem, 3vw, 2rem);
 		padding: clamp(1.15rem, 2.5vw, 1.65rem);
-		border: 1px solid var(--color-border);
+		border: 1px solid transparent;
 		text-decoration: none;
+	}
+
+	.post-list a::before {
+		position: absolute;
+		z-index: 1;
+		inset: -1px;
+		border: 1px solid var(--color-border);
+		content: "";
+		clip-path: inset(0);
+		pointer-events: none;
+		transition: clip-path var(--hover-speed) cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.post-list a:hover::before,
+	.post-list a:focus-visible::before {
+		clip-path: inset(0 100% 0 0);
 	}
 
 	.post-list a:focus-visible {
@@ -134,3 +150,21 @@ const formatDate = (date: Date) =>
 		}
 	}
 </style>
+
+<script>
+	const randomPaintPath = () => {
+		const points = [0, 20, 40, 60, 80, 100];
+		const top = points.map((x) => `${x}% ${8 + Math.round(Math.random() * 18)}%`);
+		const bottom = [...points]
+			.reverse()
+			.map((x) => `${x}% ${74 + Math.round(Math.random() * 18)}%`);
+
+		return `polygon(${[...top, ...bottom].join(', ')})`;
+	};
+
+	document.querySelectorAll<HTMLElement>('.brush-hover--paint').forEach((row) => {
+		const randomize = () => row.style.setProperty('--paint-path', randomPaintPath());
+		row.addEventListener('pointerenter', randomize);
+		row.addEventListener('focus', randomize);
+	});
+</script>

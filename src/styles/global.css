@@ -20,6 +20,7 @@
 	--frame-inset: clamp(0.5rem, 1.5vw, 1rem);
 	--pane-gap: clamp(0.5rem, 1.2vw, 0.75rem);
 	--pane-padding: clamp(1.25rem, 3vw, 2.5rem);
+	--hover-speed: 360ms;
 }
 
 :root[data-accent="blog"] {
@@ -212,14 +213,18 @@ a:focus-visible {
 .prose a::after {
 	position: absolute;
 	z-index: -1;
-	inset: -18% -4%;
+	inset: 0;
 	background: var(--color-accent);
-	clip-path: polygon(0 27%, 3% 14%, 18% 21%, 34% 10%, 53% 19%, 71% 8%, 100% 20%, 98% 82%, 80% 73%, 58% 89%, 35% 77%, 13% 87%, 0 73%);
 	content: "";
 	pointer-events: none;
 	transform: scaleX(0);
 	transform-origin: left;
-	transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+	transition: transform var(--hover-speed) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brush-hover--paint::after {
+	inset: -18% -4%;
+	clip-path: var(--paint-path, polygon(0 27%, 18% 18%, 36% 26%, 55% 14%, 73% 24%, 100% 18%, 100% 82%, 80% 74%, 58% 88%, 37% 76%, 16% 86%, 0 73%));
 }
 
 .brush-hover:hover,
@@ -242,6 +247,11 @@ a:focus-visible {
 .prose a:hover *,
 .prose a:focus-visible * {
 	color: inherit !important;
+}
+
+.brush-hover--paint:hover,
+.brush-hover--paint:focus-visible {
+	border-color: transparent;
 }
 
 @media (max-width: 640px) {
