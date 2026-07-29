@@ -12,7 +12,7 @@ const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).s
 
 <Layout title="Blog" description="Blog posts from Skun Blog">
 	<section class="archive" aria-labelledby="archive-title">
-		<p class="eyebrow" id="archive-title">01 / Transmission</p>
+		<p class="eyebrow" id="archive-title">All posts</p>
 		{
 			posts.length > 0 ? (
 				<BlogPostList posts={posts} />
