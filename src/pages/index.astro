@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BlogPostList from '../components/blog/BlogPostList.astro';
 import EmptyState from '../components/EmptyState.astro';
 import Pane from '../components/Pane.astro';
+import SpinningDonut from '../components/SpinningDonut.astro';
 import H1 from '../components/typography/H1.astro';
 import T1 from '../components/typography/T1.astro';
 import T2 from '../components/typography/T2.astro';
@@ -28,6 +29,7 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 				<T2 as="a" class="plain-link box-link brush-hover" href="/about">About me</T2>
 			</div>
 		</div>
+		<SpinningDonut />
 	</Pane>
 
 	<Pane as="section" class="transmissions" aria-labelledby="latest-title">
@@ -48,7 +50,9 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 <style>
 	.home-hero {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
 		align-items: center;
+		gap: clamp(2rem, 5vw, 5rem);
 		min-height: clamp(22rem, 55vh, 34rem);
 	}
 
@@ -76,6 +80,18 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 
 	.transmissions h2.eyebrow {
 		margin: 0;
+	}
+
+	@media (max-width: 800px) {
+		.home-hero {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.home-hero :global(.donut) {
+			width: min(100%, 24rem);
+			margin-inline: auto;
+		}
 	}
 
 	@media (max-width: 480px) {

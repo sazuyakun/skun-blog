@@ -1,0 +1,114 @@
+<div class="donut">
+	<pre role="img" aria-label="A rotating ASCII donut">ASCII donut loading.</pre>
+</div>
+
+<script>
+	const output = document.querySelector<HTMLPreElement>('.donut pre');
+
+	if (output) {
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let animationFrame = 0;
+		let previousTime = 0;
+		let isVisible = true;
+		let A = 1;
+		let B = 1;
+
+		const draw = () => {
+			const characters = Array<string>(1760).fill(' ');
+			const depth = Array<number>(1760).fill(0);
+			const shades = '.,-~:;=!*#$@';
+
+			A += 0.07;
+			B += 0.03;
+			const cA = Math.cos(A);
+			const sA = Math.sin(A);
+			const cB = Math.cos(B);
+			const sB = Math.sin(B);
+
+			// Character projection and lighting adapted from the original donut renderer:
+			// https://www.a1k0n.net/2011/07/20/donut-math.html
+			for (let theta = 0; theta < Math.PI * 2; theta += 0.07) {
+				const cosTheta = Math.cos(theta);
+				const sinTheta = Math.sin(theta);
+
+				for (let phi = 0; phi < Math.PI * 2; phi += 0.02) {
+					const sinPhi = Math.sin(phi);
+					const cosPhi = Math.cos(phi);
+					const circleX = cosTheta + 2;
+					const inverseZ = 1 / (sinPhi * circleX * sA + sinTheta * cA + 5);
+					const rotationTerm = sinPhi * circleX * cA - sinTheta * sA;
+					const x = Math.trunc(40 + 30 * inverseZ * (cosPhi * circleX * cB - rotationTerm * sB));
+					const y = Math.trunc(12 + 15 * inverseZ * (cosPhi * circleX * sB + rotationTerm * cB));
+					const bufferIndex = x + 80 * y;
+					const luminance = Math.trunc(
+						8 *
+							((sinTheta * sA - sinPhi * cosTheta * cA) * cB -
+								sinPhi * cosTheta * sA -
+								sinTheta * cA -
+								cosPhi * cosTheta * sB),
+					);
+
+					if (y >= 0 && y < 22 && x >= 0 && x < 79 && inverseZ > depth[bufferIndex]) {
+						depth[bufferIndex] = inverseZ;
+						characters[bufferIndex] = shades[Math.max(luminance, 0)];
+					}
+				}
+			}
+
+			output.textContent = Array.from({ length: 22 }, (_, row) =>
+				characters.slice(row * 80 + 15, row * 80 + 65).join(''),
+			).join('\n');
+		};
+
+		const animate = (time: number) => {
+			if (time - previousTime >= 50) {
+				draw();
+				previousTime = time;
+			}
+
+			if (isVisible && !reduceMotion.matches) {
+				animationFrame = requestAnimationFrame(animate);
+			}
+		};
+
+		const updateAnimation = () => {
+			cancelAnimationFrame(animationFrame);
+			previousTime = 0;
+			draw();
+
+			if (isVisible && !reduceMotion.matches) {
+				animationFrame = requestAnimationFrame(animate);
+			}
+		};
+
+		const observer = new IntersectionObserver(([entry]) => {
+			isVisible = entry.isIntersecting;
+			updateAnimation();
+		});
+
+		draw();
+		observer.observe(output);
+		reduceMotion.addEventListener('change', updateAnimation);
+	}
+</script>
+
+<style>
+	.donut {
+		container-type: inline-size;
+		display: grid;
+		place-items: center;
+		width: 100%;
+		margin: 0;
+		pointer-events: none;
+	}
+
+	pre {
+		display: block;
+		width: 50ch;
+		max-width: 100%;
+		margin: 0;
+		color: var(--color-text);
+		font: 400 min(3.05cqw, 0.925rem) / 1 var(--font-editor);
+		text-shadow: 0 0 1.75rem color-mix(in srgb, var(--color-accent) 24%, transparent);
+	}
+</style>
