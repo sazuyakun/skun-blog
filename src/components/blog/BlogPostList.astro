@@ -60,7 +60,8 @@ const formatDate = (date: Date) =>
 	.post-list a::before {
 		position: absolute;
 		z-index: 1;
-		inset: -1px;
+		inset: 0;
+		box-sizing: border-box;
 		border: 1px solid var(--color-border);
 		content: "";
 		clip-path: inset(0);
