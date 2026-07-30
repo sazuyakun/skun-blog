@@ -1,0 +1,122 @@
+<div class="donut">
+	<canvas width="320" height="240" role="img" aria-label="A rotating, illuminated wireframe donut">
+		A rotating, illuminated wireframe donut.
+	</canvas>
+</div>
+
+<script>
+	const canvas = document.querySelector<HTMLCanvasElement>('.donut canvas');
+
+	if (canvas) {
+		const context = canvas.getContext('2d');
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let animationFrame = 0;
+		let previousTime = 0;
+		let isVisible = true;
+		let A = 1;
+		let B = 1;
+
+		const resize = () => {
+			const scale = Math.min(window.devicePixelRatio, 2);
+			canvas.width = 320 * scale;
+			canvas.height = 240 * scale;
+			context?.setTransform(scale, 0, 0, scale, 0, 0);
+		};
+
+		const draw = () => {
+			if (!context) return;
+
+			context.clearRect(0, 0, 320, 240);
+
+			// Projection and lighting adapted from https://www.a1k0n.net/2011/07/20/donut-math.html
+			const cA = Math.cos(A);
+			const sA = Math.sin(A);
+			const cB = Math.cos(B);
+			const sB = Math.sin(B);
+
+			for (let theta = 0; theta < Math.PI * 2; theta += 0.3) {
+				const cosTheta = Math.cos(theta);
+				const sinTheta = Math.sin(theta);
+
+				for (let phi = 0; phi < Math.PI * 2; phi += 0.1) {
+					const sinPhi = Math.sin(phi);
+					const cosPhi = Math.cos(phi);
+					const objectX = 2 + cosTheta;
+					const objectY = sinTheta;
+					const x = objectX * (cB * cosPhi + sA * sB * sinPhi) - objectY * cA * sB;
+					const y = objectX * (sB * cosPhi - sA * cB * sinPhi) + objectY * cA * cB;
+					const inverseZ = 1 / (5 + cA * objectX * sinPhi + sA * objectY);
+					const screenX = 160 + 150 * inverseZ * x;
+					const screenY = 120 - 150 * inverseZ * y;
+					const luminance =
+						0.7 *
+						(cosPhi * cosTheta * sB -
+							cA * cosTheta * sinPhi -
+							sA * sinTheta +
+							cB * (cA * sinTheta - cosTheta * sA * sinPhi));
+
+					if (luminance > 0) {
+						context.fillStyle = `rgba(241, 238, 229, ${luminance})`;
+						context.fillRect(screenX, screenY, 1.5, 1.5);
+					}
+				}
+			}
+		};
+
+		const animate = (time: number) => {
+			if (time - previousTime >= 50) {
+				A += 0.07;
+				B += 0.03;
+				draw();
+				previousTime = time;
+			}
+
+			if (isVisible && !reduceMotion.matches) {
+				animationFrame = requestAnimationFrame(animate);
+			}
+		};
+
+		const updateAnimation = () => {
+			cancelAnimationFrame(animationFrame);
+			previousTime = 0;
+			draw();
+
+			if (isVisible && !reduceMotion.matches) {
+				animationFrame = requestAnimationFrame(animate);
+			}
+		};
+
+		const handleResize = () => {
+			resize();
+			draw();
+		};
+
+		const observer = new IntersectionObserver(([entry]) => {
+			isVisible = entry.isIntersecting;
+			updateAnimation();
+		});
+
+		resize();
+		draw();
+		observer.observe(canvas);
+		reduceMotion.addEventListener('change', updateAnimation);
+		window.addEventListener('resize', handleResize, { passive: true });
+	}
+</script>
+
+<style>
+	.donut {
+		display: grid;
+		place-items: center;
+		width: 100%;
+		margin: 0;
+		pointer-events: none;
+	}
+
+	canvas {
+		display: block;
+		width: min(100%, 30rem);
+		height: auto;
+		filter: drop-shadow(0 0 1.75rem color-mix(in srgb, var(--color-accent) 12%, transparent));
+	}
+</style>
