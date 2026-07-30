@@ -89,6 +89,7 @@ const latestPosts = (await getCollection('blog', ({ data }) => data.draft !== tr
 		}
 
 		.home-hero :global(.donut) {
+			order: -1;
 			width: min(100%, 24rem);
 			margin-inline: auto;
 		}
