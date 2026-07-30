@@ -14,7 +14,7 @@
 		let B = 1;
 
 		const draw = () => {
-			const characters = Array<string>(1760);
+			const characters = Array<string>(1760).fill(' ');
 			const depth = Array<number>(1760).fill(0);
 			const shades = '.,-~:;=!*#$@';
 
@@ -24,10 +24,6 @@
 			const sA = Math.sin(A);
 			const cB = Math.cos(B);
 			const sB = Math.sin(B);
-
-			for (let index = 0; index < characters.length; index++) {
-				characters[index] = index % 80 === 79 ? '\n' : ' ';
-			}
 
 			// Character projection and lighting adapted from the original donut renderer:
 			// https://www.a1k0n.net/2011/07/20/donut-math.html
@@ -59,7 +55,9 @@
 				}
 			}
 
-			output.textContent = characters.join('');
+			output.textContent = Array.from({ length: 22 }, (_, row) =>
+				characters.slice(row * 80 + 15, row * 80 + 65).join(''),
+			).join('\n');
 		};
 
 		const animate = (time: number) => {
@@ -106,10 +104,11 @@
 
 	pre {
 		display: block;
-		width: 100%;
+		width: 50ch;
+		max-width: 100%;
 		margin: 0;
 		color: var(--color-text);
-		font: 400 min(2.05cqw, 0.65rem) / 1 var(--font-editor);
+		font: 400 min(3.05cqw, 0.925rem) / 1 var(--font-editor);
 		text-shadow: 0 0 1.75rem color-mix(in srgb, var(--color-accent) 24%, transparent);
 	}
 </style>
