@@ -3,7 +3,7 @@ title: 'Draft title'
 description: 'Draft description.'
 order: 1
 pubDate: '2026-01-01'
-heroImageUrl: '/images/blog-placeholder.svg'
+heroImageUrl: '/images/blogs/blog-placeholder.svg'
 draft: true
 ---
 

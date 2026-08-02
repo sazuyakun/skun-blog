@@ -17,9 +17,13 @@ import Layout from '../../layouts/Layout.astro';
 		<div class="profile-body">
 			<Pane as="aside" class="profile-note" aria-label="Personal note">
 				<T2 class="note-index">Personnel note / S-26</T2>
-				<div class="portrait-placeholder" role="img" aria-label="Placeholder for a portrait photo">
-					<T2>Photo / pending</T2>
-				</div>
+				<img
+					class="portrait"
+					src="/images/assets/me.jpg"
+					alt="Portrait of skun"
+					width="1278"
+					height="1280"
+				/>
 				<T1 class="punchline">Building things to understand how they work.</T1>
 				<T2 class="note-signature">S / 26</T2>
 			</Pane>
@@ -86,18 +90,18 @@ import Layout from '../../layouts/Layout.astro';
 	}
 
 	.profile-body {
-		display: grid;
-		grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+		display: flex;
 		gap: var(--pane-gap);
 	}
 
 	.profile-note {
+		flex: 1 1 calc(100% / 3);
+		min-width: 0;
 		background: var(--color-surface);
 	}
 
 	.note-index,
-	.note-signature,
-	.portrait-placeholder span {
+	.note-signature {
 		color: var(--color-accent);
 		font-weight: 700;
 		letter-spacing: 0.12em;
@@ -109,17 +113,13 @@ import Layout from '../../layouts/Layout.astro';
 		margin-bottom: 1rem;
 	}
 
-	.portrait-placeholder {
-		position: relative;
-		display: flex;
-		align-items: end;
-		aspect-ratio: 4 / 5;
-		overflow: hidden;
-		background:
-			linear-gradient(135deg, transparent calc(50% - 0.5px), color-mix(in srgb, var(--color-accent) 18%, transparent) 50%, transparent calc(50% + 0.5px)),
-			linear-gradient(45deg, transparent calc(50% - 0.5px), color-mix(in srgb, var(--color-accent) 18%, transparent) 50%, transparent calc(50% + 0.5px)),
-			var(--color-background);
-		padding: 0.75rem;
+	.portrait {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1;
+		object-fit: cover;
+		transform: rotate(90deg);
 	}
 
 	.punchline {
@@ -138,8 +138,10 @@ import Layout from '../../layouts/Layout.astro';
 
 	.statement {
 		display: flex;
+		flex: 2 1 calc(200% / 3);
 		justify-content: center;
 		flex-direction: column;
+		min-width: 0;
 	}
 
 	.statement :global(.type-h2) {
@@ -224,11 +226,12 @@ import Layout from '../../layouts/Layout.astro';
 
 	@media (max-width: 760px) {
 		.profile-body {
-			grid-template-columns: 1fr;
+			flex-direction: column;
 		}
 
-		.profile-note {
-			width: min(100%, 24rem);
+		.profile-note,
+		.statement {
+			flex-basis: auto;
 		}
 
 		.social-links {
