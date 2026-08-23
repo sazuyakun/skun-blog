@@ -158,20 +158,24 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		letter-spacing: -0.04em;
 	}
 
-	.prose :global(h1::before),
-	.prose :global(h2::before),
-	.prose :global(h3::before),
-	.prose :global(h4::before),
-	.prose :global(h5::before),
-	.prose :global(h6::before) {
-		display: block;
-		margin-bottom: 0.65rem;
-		color: var(--color-accent);
-		content: "Section /";
-		font-family: var(--font-editor);
-		font-weight: 650;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
+	.prose :global(h2) {
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+	}
+
+	.prose :global(h3) {
+		font-size: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.prose :global(h4) {
+		font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+	}
+
+	.prose :global(h5) {
+		font-size: clamp(1rem, 2vw, 1.25rem);
+	}
+
+	.prose :global(h6) {
+		font-size: 1rem;
 	}
 
 	.prose :global(p),
@@ -202,7 +206,11 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		border: 1px solid var(--color-accent);
 		color: var(--color-text);
 		font-style: italic;
-		padding: 0.25rem 0 0.25rem 1.5rem;
+		padding: 1.25rem 1.5rem;
+	}
+
+	.prose :global(blockquote > :last-child) {
+		margin-bottom: 0;
 	}
 
 	.prose :global(a) {
@@ -245,12 +253,11 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 	}
 
 	.prose :global(table) {
-		display: block;
-		overflow-x: auto;
 		width: 100%;
 		margin: 2rem 0;
 		border-collapse: collapse;
 		font-family: var(--font-editor);
+		table-layout: fixed;
 	}
 
 	.prose :global(th),
@@ -262,6 +269,16 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 
 	.prose :global(th) {
 		color: var(--color-text);
+	}
+
+	@media (max-width: 640px) {
+		.prose {
+			overflow-x: auto;
+		}
+
+		.prose :global(table) {
+			min-width: 40rem;
+		}
 	}
 
 	.post-footer {
