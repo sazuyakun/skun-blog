@@ -39,9 +39,8 @@ This is the 3 step framework for you! We will combine this with the mental image
 This is the simplest to understand but the toughest to settle on out of all the three.
 
 Simple? Coz it literally involves only two things:
-- The desk
-  - Keep it as large as possible. Your h
-- The chair
+- **The desk**
+- **The chair**
 
 But here's where everyone goes wrong! They `DON'T` think a lot about this step... But don't worry, I've it all figured out. Remember, this is the foundational step.
 
@@ -80,7 +79,7 @@ Go for the `40 30 30` rule (made up but works)...
 
 Well... this is the part you have been waiting for. If you get this step wrong, no matter how expensive of a setup you have, you will prefer your couch over the chair.
 
-LIGHTS...
+***LIGHTS...***
 
 99% of the desk setup is done. Nailing the ergonomics and the personal touch is all there is to a desk setup. That's the practical part... the scientific side. Lights... well they belong to the `ART SIDE`. The magic...
 
