@@ -191,6 +191,13 @@ const formattedPubDate = pubDate.toLocaleDateString('en', {
 		color: var(--color-muted);
 	}
 
+	.prose :global(img) {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+	}
+
 	.prose :global(ul),
 	.prose :global(ol) {
 		color: var(--color-muted);
