@@ -88,15 +88,15 @@ LIGHTS...
 
 Having good lights is the most difficult part. But as always, I've got your back. Here's the list you have to keep in mind when setting up light (in order of MAX -> MIN priority):
 
-- Natural Lights
+- **Natural Lights**
   - Keep your desk `closest` to the `largest` source of natural light possible for you. A large window, white diffusing curtains, either in front of the desk or beside the desks (Prefer natural light straight ahead).
   - Never keep your desk opposite to the natural light source
-- Focus Light
+- **Focus Light**
   - The light that puts focus on the most importants parts of your desk.
   - Get a light bar if majority of your time goes staring at the screen
   - Get a good bright lamp that throws light on to the desk if you write a lot
   - Keeping your eyes healthy should be your priority. Natural lights + good Focus lights cover that for you
-- Small lights 👑
+- **Small lights** 👑
   - Decor lamps, strip lights, cute light emitting panda... this is the `MAGNETIC PULL` for your setup.
   - Ideas... Get smart ones
   - Get the ones that react to sound
